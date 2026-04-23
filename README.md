@@ -2,8 +2,8 @@
 
 Comparison of Jump Height between Squat Jump (SJ) and Countermovement Jump (CMJ)
 
-1. Scientific Problem
-   1.1 Context
+#1. Scientific Problem
+##1.1 Context
    Vertical jump performance is a key indicator of lower limb neuromuscular function. Two commonly used test are :
    - Squat Jump (SJ): assesses concentric force production
    - Countermovement Jump (CMJ): assesses stretch-shortening cycle efficiency
