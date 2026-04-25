@@ -12,7 +12,7 @@ However, in pathological conditions affecting the lower limb, such as patellar t
 
 Therefore, the relevant question is not whether CMJ performance is higher than SJ performance, but whether individuals with patellar tendinopathy still benefit from the SSC in the same way as expected during vertical jumping.
 
-$ What we are looking for: $ assess whether the gain in jump height between SJ and CMJ is preserved in patients with patellar tendinopathy, in order to indirectly evaluate the functional contribution of the stretch-shortening cycle.
+**What we are looking for:** assess whether the gain in jump height between SJ and CMJ is preserved in patients with patellar tendinopathy, in order to indirectly evaluate the functional contribution of the stretch-shortening cycle.
 
 
 
