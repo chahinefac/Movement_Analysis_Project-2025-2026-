@@ -1,6 +1,6 @@
 # Movement_Analysis_Project 2025-2026
 
-# Comparison of Jump Height between Squat Jump (SJ) and Countermovement Jump (CMJ)
+# Comparison of Jump Height (Flight Time) Between Squat Jump and Countermovement Jump in Athletes with Patellar Tendinopathy
 
 # 1. Scientific Problem
 ## 1.1 Context
