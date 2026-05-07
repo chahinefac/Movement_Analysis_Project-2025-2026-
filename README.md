@@ -108,8 +108,6 @@ The statistical analysis provided:
 
 The comparison between Squat Jump (SJ) and Countermovement Jump (CMJ) showed that jump height was systematically higher in the CMJ condition. This result is consistent with the expected contribution of the stretch-shortening cycle, which enhances force production during dynamic movements.
 
-At the individual level, most participants demonstrated an increase in jump height from SJ to CMJ, suggesting that the ability to utilize the stretch-shortening cycle is preserved despite the presence of patellar tendinopathy.
-
 These findings indicate that, in this population, jump performance follows the same general pattern observed in healthy individuals, with a clear advantage of CMJ over SJ.
 
 # 5. References
