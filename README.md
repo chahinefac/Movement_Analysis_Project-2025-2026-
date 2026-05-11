@@ -26,7 +26,9 @@ Twelve high-level athletes diagnosed with patellar tendinopathy participated in 
 
 ## 1.5 Primary Outcome Measure
 
-Jump Height (Flight Time) [cm] ​
+Jump Height (Flight Time) [cm] 
+​
+$$h = \frac{t^2 g}{8}$$
 
 Where Jump height (flight time) is defined as *the vertical displacement of the center of mass estimated from the flight duration, assuming identical center of mass position at take-off and landing and ballistic motion during the airborne phase (Nicholas P. Linthorne, 2001).*
 
