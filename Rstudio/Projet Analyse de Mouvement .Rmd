@@ -4,9 +4,11 @@ author: "Chahine ABDEL-HAMID"
 date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
 output:
   html_document:
-    df_print: paged
-    code_folding: hide
-    toc: false
+    toc: true
+    toc_float: true
+    code_folding: show
+    theme: flatly
+    highlight: tango
     number_sections: true
 ---
 
@@ -35,38 +37,79 @@ The purpose of this R notebook is to:
 - perform the appropriate paired statistical test,
 - estimate the effect size.
 
-# Load the data
+# Load required packages and Import the cleaned dataset 
 
 The cleaned file generated in Python is imported below.
 
-```{r load_and_analysis, echo=TRUE, message=FALSE, warning=FALSE}
-
-
-#----- 1. Load required packages ------
+```{r,warning=FALSE}
 
 library(readxl)
 library(effsize)
 library(dplyr)
 library(knitr)
 
-#----- 2. Import the cleaned dataset -----
 
 df <- read_xlsx("data/Global_Jump_Height.xlsx")
+```
 
 
-#----- 3. Convert variables to numeric -----
+# Convert variables to numeric and Compute the paired difference 
+
+The two main variables (SJ_Mean and CMJ_Mean) must be treated as numeric variables.
+
+Then, a new variable called Delta is created:
+
+$Delta = CMJ_mean - SJ_Mean$
+
+This variable represents the individual gain in jump height between the two conditions.
+It is central to the statistical reasoning because the paired comparison relies on the within-subject difference.
+
+```{r,warning=FALSE}
 
 df$SJ_Mean <- as.numeric(df$SJ_Mean)
 df$CMJ_Mean <- as.numeric(df$CMJ_Mean)
 
 
-#----- 4. Compute the paired difference -----
-
 df$Delta <- df$CMJ_Mean - df$SJ_Mean
+```
 
+# Table of Individual values 
 
-#----- 5. Descriptive statistics -----
+Before summarizing the results at the group level, it is useful to present the individual values.
 
+This table shows, for each participant:
+
+- the mean jump height in SJ,
+- the mean jump height in CMJ,
+- the paired difference (CMJ - SJ).
+
+```{r,warning=FALSE}
+individual_table <- df %>%
+  select(Patient, SJ_Mean, CMJ_Mean, Delta)
+
+kable(
+  individual_table,
+  digits = 2,
+  caption = "Individual jump height values and paired differences"
+)
+```
+
+A **positive value** in the Delta column indicates that the participant **jumped higher in the CMJ** condition than in the SJ condition.
+A **negative value** would indicate **the opposite**.
+
+#  Descriptive statistics 
+
+The next step is to summarize the data at the group level.
+
+We compute:
+
+- the mean and standard deviation for SJ_Mean,
+- the mean and standard deviation for CMJ_Mean,
+- the mean and standard deviation for Delta.
+
+These descriptive statistics provide an overview of the performance in each condition.
+
+```{r,warning=FALSE}
 mean_SJ <- mean(df$SJ_Mean, na.rm = TRUE)
 sd_SJ   <- sd(df$SJ_Mean, na.rm = TRUE)
 
@@ -75,7 +118,11 @@ sd_CMJ   <- sd(df$CMJ_Mean, na.rm = TRUE)
 
 mean_delta <- mean(df$Delta, na.rm = TRUE)
 sd_delta   <- sd(df$Delta, na.rm = TRUE)
+```
 
+The descriptive statistics are displayed below in a clean summary table.
+
+```{r,warning=FALSE}
 desc_table <- data.frame(
   Condition = c("SJ", "CMJ", "CMJ - SJ"),
   Mean = c(mean_SJ, mean_CMJ, mean_delta),
@@ -88,19 +135,95 @@ kable(
   caption = "Descriptive statistics for jump height"
 )
 
+```
 
-#----- 6. Normality of paired differences -----
+This table allows a first interpretation of the results.
+
+If the mean value is higher in CMJ than in SJ, this already suggests a performance advantage in the countermovement condition.
+
+However, descriptive statistics alone are not sufficient to conclude whether the observed difference is statistically reliable.
+
+# Normality of paired differences 
+
+Because the main inferential test planned in this project is a paired Student t-test, we first need to verify whether the paired differences are approximately normally distributed.
+
+Importantly, the normality assumption is tested on:
+
+$Delta = CMJ - SJ$
+
+and not separately on *SJ_Mean* and *CMJ_Mean*.
+
+This is because the paired t-test is based on the distribution of the within-subject differences.
+
+```{r,warning=FALSE}
 
 shapiro_result <- shapiro.test(df$Delta)
+shapiro_result
+```
 
-#----- 7. Paired t-test -----
+**Interpretation of the normality test**
+
+The null hypothesis of the Shapiro-Wilk test is that the data are *normally distributed*.
+
+If p > 0.05, the normality assumption is considered acceptable.
+If p < 0.05, normality would be questioned.
+
+In this project, the p-value is greater than 0.05, which means that the normality assumption is not violated.
+This supports the use of a paired t-test for the next step.
+
+# Paired t-test 
+
+```{r,warning=FALSE}
 
 ttest_result <- t.test(df$CMJ_Mean, df$SJ_Mean, paired = TRUE)
+ttest_result
+```
 
-# ----- 8. Effect size -----
+**Interpretation of the paired t-test**
+
+The paired t-test provides several important pieces of information:
+
+- the t statistic,
+- the degrees of freedom,
+- the p-value,
+- the confidence interval of the mean difference,
+- the estimated mean difference between conditions.
+
+If the p-value is below 0.05, the difference between CMJ and SJ is considered statistically significant.
+
+Here, the result indicates that *jump height is significantly greater in the CMJ condition than in the SJ condition*.
+
+
+#  Effect size
+
+A statistically significant p-value tells us that a difference exists, but it does not tell us how large that difference is in practical terms.
+
+To address this, we compute Cohen's d, which provides a standardized effect size.
+```{r,warning=FALSE}
 
 effect_size <- cohen.d(df$CMJ_Mean, df$SJ_Mean, paired = TRUE)
+effect_size
+```
+**Interpretation of the effect size**
 
+Cohen's d is commonly interpreted as follows:
+
+- around 0.2: small effect
+- around 0.5: medium effect
+- around 0.8 or more: large effect
+
+In this project, the *effect size is large*, which indicates that the *difference between SJ and CMJ is not only statistically significant, but also substantial in magnitude*.
+
+
+# Full Statistical analysis 
+
+This table provides a compact summary of the main statistical conclusions:
+
+- the normality assumption was respected,
+- the paired difference was statistically significant,
+- the effect size was large.
+
+```{r,warning=FALSE}
 infer_table <- data.frame(
   Test = c("Shapiro-Wilk", "Paired t-test", "Effect size"),
   Statistic = c(
@@ -126,15 +249,28 @@ kable(
 )
 ```
 
-The results showed that:
+The statistical analysis shows that:
 
-- mean jump height was 34.70 ± 2.98 cm in SJ,
-- mean jump height was 38.27 ± 3.26 cm in CMJ,
+- mean jump height was *34.70 ± 2.98 cm* in the SJ condition,
+- mean jump height was *38.27 ± 3.26 cm* in the CMJ condition,
+- mean paired difference (CMJ - SJ) was *3.57 ± 2.02 cm*.
 
-- the mean paired difference (CMJ - SJ) was 3.57 ± 2.02 cm,
+The paired differences were normally distributed:
 
-- the normality assumption was respected (W = 0.9762, p = 0.9638),
+Shapiro-Wilk: W = 0.9762, p = 0.9638
 
-- the paired t-test was significant (t(11) = 6.1163, p = 7.56e-05),
+The paired t-test showed a statistically significant difference between conditions:
 
-- the effect size was large (Cohen's d = 1.13)
+- t(11) = 6.1163
+- p = 7.56e-05
+- 95% CI = [2.28 ; 4.85]
+
+The effect size was large:
+
+- Cohen's d = 1.13
+
+Taken together, these results indicate that **jump height was significantly greater in the CMJ condition than in the SJ condition**.
+
+Because the CMJ includes a preparatory eccentric phase whereas the SJ starts from a static position, this difference can be interpreted as an indirect functional indicator of *stretch-shortening cycle contribution*.
+
+In this sample of athletes with patellar tendinopathy, the expected performance advantage of the CMJ therefore remained present at the group level.
