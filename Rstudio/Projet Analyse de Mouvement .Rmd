@@ -18,49 +18,78 @@ The goal of this notebook is to
 The data file is provided in the `data/test_data/` folder.  
 The csv file contains one individual per line and several columns, with the column name appearing in the first line of the file.
 
-```{r}
+```{r load_and_analysis, echo=TRUE, message=FALSE, warning=FALSE}
+
+# =========================
+# 1. Chargement des packages
+# =========================
 library(readxl)
+library(effsize)
 
-# Lire le fichier
-df <- read_excel("data/DATA.xlsx", skip = 1)
+# =========================
+# 2. Import des données
+# =========================
+df <- read_xlsx("data/Global_Jump_Height.xlsx")
 
-# Enlever les lignes vides
-df <- df[!is.na(df$Patient), ]
-
-# Vérifier les noms de colonnes
-names(df)
-
-# Convertir les colonnes en numérique
-df$SJ_Mean  <- as.numeric(df$SJ_Mean)
-df$SJ_SD    <- as.numeric(df$SJ_SD)
-df$SJ_CoV   <- as.numeric(df$SJ_CoV)
-df$CMJ_Mean <- as.numeric(df$CMJ_Mean)
-df$CMJ_SD   <- as.numeric(df$CMJ_SD)
-df$CMJ_CoV  <- as.numeric(df$CMJ_CoV)
-
-# Vérifier la structure
+# =========================
+# 3. Vérification rapide
+# =========================
+head(df)
 str(df)
+colnames(df)
 
-# Statistiques descriptives
-mean(df$SJ_Mean, na.rm = TRUE)
-sd(df$SJ_Mean, na.rm = TRUE)
+# =========================
+# 4. Conversion en numérique
+# =========================
+df$SJ_Mean <- as.numeric(df$SJ_Mean)
+df$CMJ_Mean <- as.numeric(df$CMJ_Mean)
 
-mean(df$CMJ_Mean, na.rm = TRUE)
-sd(df$CMJ_Mean, na.rm = TRUE)
-
-# Calcul du Delta
+# =========================
+# 5. Calcul du Delta
+# =========================
 df$Delta <- df$CMJ_Mean - df$SJ_Mean
 
-mean(df$Delta, na.rm = TRUE)
-sd(df$Delta, na.rm = TRUE)
+# =========================
+# 6. Statistiques descriptives
+# =========================
+mean_SJ <- mean(df$SJ_Mean, na.rm = TRUE)
+sd_SJ   <- sd(df$SJ_Mean, na.rm = TRUE)
 
-# Test t apparié
-t.test(df$CMJ_Mean, df$SJ_Mean, paired = TRUE)
+mean_CMJ <- mean(df$CMJ_Mean, na.rm = TRUE)
+sd_CMJ   <- sd(df$CMJ_Mean, na.rm = TRUE)
+
+mean_delta <- mean(df$Delta, na.rm = TRUE)
+sd_delta   <- sd(df$Delta, na.rm = TRUE)
+
+mean_SJ
+sd_SJ
+mean_CMJ
+sd_CMJ
+mean_delta
+sd_delta
+
+# =========================
+# 7. Vérification de la normalité des différences
+# =========================
+shapiro_result <- shapiro.test(df$Delta)
+shapiro_result
+
+# =========================
+# 8. Test t apparié
+# =========================
+ttest_result <- t.test(df$CMJ_Mean, df$SJ_Mean, paired = TRUE)
+ttest_result
+
+# =========================
+# 9. Test non paramétrique en complément
+#    (utile si normalité non respectée)
+# =========================
+wilcox_result <- wilcox.test(df$CMJ_Mean, df$SJ_Mean, paired = TRUE)
+wilcox_result
+
+# =========================
+# 10. Taille d'effet
+# =========================
+effect_size <- cohen.d(df$CMJ_Mean, df$SJ_Mean, paired = TRUE)
+effect_size
 ```
-
-
-
-
-
-
-
