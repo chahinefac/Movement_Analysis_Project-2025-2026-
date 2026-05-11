@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="Chahine ABDEL-HAMID" />
+<meta name="date" content="2026-05-08" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>abdel-hamid.chahine</title>
+<style>
+  :root{
+    --text:#222;
+    --muted:#666;
+    --line:#e5e7eb;
+    --accent:#1f4e79;
+    --bg:#ffffff;
+    --code:#f6f8fa;
+  }
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.6;
+  }
+  .container{
+    max-width:1000px;
+    margin:0 auto;
+    padding:32px 24px 56px;
+  }
+  #header{
+    border-bottom:2px solid var(--line);
+    margin-bottom:24px;
+    padding-bottom:12px;
+  }
+  h1,h2,h3,h4{color:var(--accent); margin-top:1.4em}
+  h1.title{
+    margin:0 0 6px 0;
+    color:#111827;
+    font-size:2.1rem;
+  }
+  .meta{color:var(--muted); margin:4px 0}
+  #TOC{
+    background:#fafafa;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:18px 22px;
+    margin:24px 0 32px;
+  }
+  #TOC h2{margin-top:0}
+  #TOC ul{margin:0.35em 0 0.35em 1.2em}
+  a{color:#0b5cab; text-decoration:none}
+  a:hover{text-decoration:underline}
+  code{
+    background:var(--code);
+    padding:2px 5px;
+    border-radius:4px;
+    font-family: Consolas, Monaco, monospace;
+    font-size:0.95em;
+  }
+  pre{
+    background:var(--code);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:14px;
+    overflow:auto;
+  }
+  pre code{background:transparent; padding:0}
+  hr{
+    border:none;
+    border-top:1px solid var(--line);
+    margin:28px 0;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:16px 0 24px;
+    font-size:0.96rem;
+  }
+  th,td{
+    border:1px solid var(--line);
+    padding:10px 12px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{background:#f9fafb}
+  .note{
+    border-left:4px solid var(--accent);
+    background:#f8fbff;
+    padding:12px 14px;
+    margin:16px 0;
+  }
+  .small{color:var(--muted); font-size:0.95rem}
+  .section-number{color:var(--muted); margin-right:6px}
+  ul li{margin:0.25em 0}
+</style>
+</head>
+<body>
+<div class="container">
+  <div id="header">
+    <h1 class="title toc-ignore">abdel-hamid.chahine</h1>
+    <div class="meta"><strong>Author:</strong> Chahine ABDEL-HAMID</div>
+    <div class="meta"><strong>Date:</strong> 2026-05-08</div>
+  </div>
+
+  <div id="TOC">
+    <h2>Table of contents</h2>
+    <ul>
+      <li><a href="#project-title">Stretch-shortening cycle contribution to vertical jump performance: comparison of squat jump and countermovement jump</a>
+        <ul>
+          <li><a href="#project-accessibility">0. Project accessibility</a></li>
+          <li><a href="#scientific-problem">1. Scientific problem</a>
+            <ul>
+              <li><a href="#context">1.1. Context</a></li>
+              <li><a href="#aim">1.2. Aim</a></li>
+              <li><a href="#method">1.3. Method</a></li>
+              <li><a href="#participants">1.4. Participants</a></li>
+              <li><a href="#Primary outcome-measure">1.5. Primary outcome measure</a></li>
+            </ul>
+          </li>
+          <li><a href="#aim-of-the-code">2. Aim of the code</a></li>
+          <li><a href="#data-organization">3. Data organization</a></li>
+          <li><a href="#script-organization">4. Script organization</a>
+            <ul>
+              <li><a href="#data-extraction">4.1. Data extraction and cleaning</a></li>
+              <li><a href="#visualization">4.2. Descriptive analysis and visualization</a></li>
+              <li><a href="#statistics">4.3. Statistical analysis</a></li>
+            </ul>
+          </li>
+          <li><a href="#code">5. Code</a>
+            <ul>
+              <li><a href="#setup">5.1. Setup</a></li>
+              <li><a href="#python-processing">5.2. Python: extraction and visualization</a></li>
+              <li><a href="#r-analysis">5.3. R: paired statistical analysis</a></li>
+            </ul>
+          </li>
+          <li><a href="#conclusion">6. Conclusion</a></li>
+          <li><a href="#references">7. References</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div id="project-title">
+    <h1>Stretch-shortening cycle contribution to vertical jump performance: comparison of squat jump and countermovement jump</h1>
+
+    <div id="project-accessibility">
+      <h2>0. Project accessibility</h2>
+      <p>The project is available on GitHub at this link:
+      <a href="https://github.com/chahinefac/Movement_Analysis_Project-2025-2026-">https://github.com/chahinefac/Movement_Analysis_Project-2025-2026-</a></p>
+    </div>
+
+    <div id="scientific-problem">
+      <h2>1. Scientific problem</h2>
+
+      <div id="context">
+        <h3>1.1. Context</h3>
+        <p>The stretch-shortening cycle (SSC) is a is a fundamental component of force production in dynamic movements. It consists of a rapid eccentric phase immediately followed by a concentric contraction, allowing the storage and reutilization of elastic energy and improving force production. In vertical jumping, the SSC contributes to performance by increasing jump height when a countermovement is performed before take-off. This explains why the Countermovement Jump (CMJ) generally produces greater jump height than the Squat Jump (SJ), which is performed from a static position and relies mainly on concentric force production.
+
+        </p>However, in pathological conditions affecting the lower limb, such as patellar tendinopathy, movement strategies may be altered. Previous work from Ben Zaki and al. (2025) has shown that athletes with patellar tendinopathy can modify their jumping and landing mechanics, particularly at the knee, suggesting adaptations in the way force is produced and absorbed during explosive tasks.
+
+        </p> What we are looking for: Assess whether the gain in jump height between Squat Jump and Countermovement Jump is preserved in patients with patellar tendinopathy.</p>
+      </div>
+
+      <div id="aim">
+        <h3>1.2. Aim</h3>
+        <p>The aim of this project is to compare jump height between squat jump and countermovement jump in order to illustrate the contribution of the stretch-shortening cycle to vertical jump performance.</p>
+      </div>
+
+      <div id="method">
+        <h3>1.3. Method</h3>
+        <p>Each participant wore 17 IMUs (MTw Awinda, XsensTechnologies, Enschede, Netherlands) with a sampling rate of 60 Hz and placed according to the full body Xsens guidelines. The participants were requested to perform a series of vertical jump tests, each of which was to be completed on three occasions, with 30-s of rest between each jump type.
+      </div>
+
+      <div id="participants">
+        <h3>1.4. Participants</h3>
+        <p>Twelve high-level athletes diagnosed with patellar tendinopathy participated in this study.</p>
+      </div>
+
+      <div id="Primary outcome-measure">
+        <h3>1.5. Primary outcome measure</h3>
+        <p>The primary outcome was <code>Jump Height (Flight Time) [cm]</code>.
+        Where <code>Jump Height (Flight Time) [cm]</code> is defined as the <i>vertical displacement of the center of mass estimated from the flight duration, assuming identical center of mass position at take-off and landing and ballistic motion during the airborne phase (Nicholas P. Linthorne, 2001)</i>.</p>
+      </div>
+    </div>
+
+    <hr />
+
+    <div id="aim-of-the-code">
+      <h2>2. Aim of the code</h2>
+      <p>The objective of the code is to automate the extraction of jump height data from participant folders, create a clean paired dataset, visualize the difference between SJ and CMJ, and perform a simple statistical comparison appropriate for repeated measurements within the same participants.</p>
+    </div>
+ <hr />
+    <div id="data-organization">
+      <h2>3. Data organization</h2>
+      <p>The project uses a <code>data</code> directory containing one subfolder per participant. Each subfolder contains 26 files (CSV and Excel). For this project, only SJ.xlsx and CMJ.xlsx are needed.</p>
+
+      <table>
+        <thead>
+          <tr><th>Element</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>data/Participant_X/</code></td><td>Folder corresponding to one participant</td></tr>
+          <tr><td><code>SJ.xlsx</code></td><td>File containing squat jump results</td></tr>
+          <tr><td><code>CMJ.xlsx</code></td><td>File containing countermovement jump results</td></tr>
+          <tr><td><code>Name</code></td><td>Column used to identify the <code>Jump Height (Flight Time) [cm]</code> variable row</td></tr>
+          <tr><td><code>Mean</code></td><td>Column containing the values</td></tr>
+          <tr><td><code>Global_Jump_Height.xlsx</code></td><td>Final summary dataset generated by the script</td></tr>
+        </tbody>
+      </table>
+    </div>
+ <hr />
+    <div id="script-organization">
+      <h2>4. Script organization</h2>
+
+      <div id="data-extraction">
+        <h3>4.1. Data extraction and cleaning</h3>
+        <ul>
+          <li><strong>Aim:</strong> Read each SJ and CMJ Excel file and extract the mean jump height.</li>
+          <li><strong>Input:</strong> <code>SJ.xlsx</code> and <code>CMJ.xlsx</code> files stored in participant folders inside <code>data</code>.</li>
+          <li><strong>Process:</strong> Detect the row containing the true headers, rebuild the dataframe, isolate the row <code>Jump Height (Flight Time) [cm]</code>, and retrieve the <code>Mean</code> value.</li>
+          <li><strong>Output:</strong> A clean paired table containing <code>SJ_Mean</code> and <code>CMJ_Mean</code> for each participant.</li>
+        </ul>
+      </div>
+
+      <div id="visualization">
+        <h3>4.2. Descriptive analysis and visualization</h3>
+        <ul>
+          <li><strong>Aim:</strong> Provide a first visual inspection of group tendencies and individual paired differences.</li>
+          <li><strong>Input:</strong> Clean summary dataset generated after extraction.</li>
+          <li><strong>Output:</strong> Boxplots and paired plots comparing SJ and CMJ jump height.</li>
+          <li><strong>Interpretation:</strong> The paired plot is particularly useful because it shows whether the difference is consistent across participants, which directly matches the logic of a paired statistical test.</li>
+        </ul>
+      </div>
+
+      <div id="statistics">
+        <h3>4.3. Statistical analysis</h3>
+        <ul>
+          <li><strong>Aim:</strong> Test whether CMJ jump height differs from SJ jump height at the group level.</li>
+          <li><strong>Input:</strong> The paired values <code>SJ_Mean</code> and <code>CMJ_Mean</code>.</li>
+          <li><strong>Assumption check:</strong> Normality of paired differences was assessed with the Shapiro-Wilk test.</li>
+          <li><strong>Main test:</strong> A paired Student t-test was used because the same participants performed both jump conditions.</li>
+          <li><strong>Interpretation:</strong> The test evaluates whether the mean difference <code>CMJ - SJ</code> is significantly different from zero.</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr />
+
+    <div id="code">
+      <h2>5. Code</h2>
+
+      <div id="setup">
+        <h3>5.1. Setup</h3>
+<pre><code>Python libraries:
+- os
+- pandas
+- matplotlib
+
+R libraries:
+- readxl
+- dplyr
+- ggplot2
+- effsize (optional)
+</code></pre>
+      </div>
+
+      <div id="python-processing">
+        <h3>5.2. Python: extraction and visualization</h3>
+        <p>The Python part of the project is used to build the dataset and generate the first visualizations.</p>
+
+<pre><code>import os
+import pandas as pd
+
+data_folder = "data"
+
+def read_clean_df(file_path):
+    df = pd.read_excel(file_path, header=None)
+
+    # Trouver la ligne où il y a "Name"
+    header_row = df[df.apply(lambda row: row.astype(str).str.contains("Name").any(), axis=1)].index[0]
+
+    # Recréer le dataframe avec les bons headers
+    df.columns = df.iloc[header_row]
+    df = df.iloc[header_row + 1:].reset_index(drop=True)
+
+    return df
+
+data = []
+
+for patient in os.listdir(data_folder):
+    patient_path = os.path.join(data_folder, patient)
+
+    if not os.path.isdir(patient_path):
+        continue
+
+    values = {"SJ_Mean": None, "CMJ_Mean": None}
+
+    for file in ["SJ.xlsx", "CMJ.xlsx"]:
+        file_path = os.path.join(patient_path, file)
+
+        if not os.path.exists(file_path):
+            continue
+
+        try:
+            df = read_clean_df(file_path)
+
+            row = df[df["Name"] == "Jump Height (Flight Time) [cm]"]
+            mean_value = float(row["Mean"].values[0])
+
+            if file == "SJ.xlsx":
+                values["SJ_Mean"] = mean_value
+            else:
+                values["CMJ_Mean"] = mean_value
+
+        except Exception as e:
+            print(f"{patient} - {file} : erreur -> {e}")
+
+    data.append({
+        "Patient": patient,
+        "SJ_Mean": values["SJ_Mean"],
+        "CMJ_Mean": values["CMJ_Mean"]
+    })
+
+df_final = pd.DataFrame(data)
+
+output_path = os.path.join(data_folder, "Global_Jump_Height.xlsx")
+df_final.to_excel(output_path, index=False)
+</code></pre>
+
+        <p>Once the summary table is created, Python is also used to generate a paired plot and boxplots for a visual analysis.</p>
+      </div>
+<pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.stats import ttest_rel
+
+# Lire le fichier final créé après nettoyage
+df = pd.read_excel("data/Global_Jump_Height.xlsx")
+
+# ----- BOXPLOT -----
+plt.figure(figsize=(8, 6))
+plt.boxplot([df["SJ_Mean"], df["CMJ_Mean"]], tick_labels=["SJ", "CMJ"])
+plt.ylabel("Jump Height (cm)")
+plt.title("SJ Height [cm] VS CMJ Height [cm]")
+plt.show()
+
+# ----- PAIRED PLOT -----
+plt.figure(figsize=(8,6))
+
+for i in range(len(df)):
+    plt.plot(
+        ["SJ", "CMJ"],
+        [df.iloc[i]["SJ_Mean"], df.iloc[i]["CMJ_Mean"]],
+        marker="o"
+    )
+
+plt.ylabel("Jump Height (cm)")
+plt.title("Individual Changes from SJ to CMJ")
+plt.show()
+</code></pre>
+
+<img src="./results/result1.png" alt="Individual changes from SJ to CMJ" width="800">
+<img src="./results/result2.png" alt="Boxplot of SJ and CMJ heights" width="800">
+
+
+      <div id="r-analysis">
+        <h3>5.3. R: paired statistical analysis</h3>
+        <p>The R part is used to verify the normality of paired differences and to compute the paired t-test.</p>
+
+<pre><code>library(readxl)
+
+# Lire le fichier
+df <- read_excel("data/DATA.xlsx", skip = 1)
+
+# Enlever les lignes vides
+df <- df[!is.na(df$Patient), ]
+
+# Vérifier les noms de colonnes
+names(df)
+
+# Convertir les colonnes en numérique
+df$SJ_Mean  <- as.numeric(df$SJ_Mean)
+df$SJ_SD    <- as.numeric(df$SJ_SD)
+df$SJ_CoV   <- as.numeric(df$SJ_CoV)
+df$CMJ_Mean <- as.numeric(df$CMJ_Mean)
+df$CMJ_SD   <- as.numeric(df$CMJ_SD)
+df$CMJ_CoV  <- as.numeric(df$CMJ_CoV)
+
+# Vérifier la structure
+str(df)
+
+# Statistiques descriptives
+mean(df$SJ_Mean, na.rm = TRUE)
+sd(df$SJ_Mean, na.rm = TRUE)
+
+mean(df$CMJ_Mean, na.rm = TRUE)
+sd(df$CMJ_Mean, na.rm = TRUE)
+
+# Calcul du Delta
+df$Delta <- df$CMJ_Mean - df$SJ_Mean
+
+mean(df$Delta, na.rm = TRUE)
+sd(df$Delta, na.rm = TRUE)
+
+# Test t apparié
+t.test(df$CMJ_Mean, df$SJ_Mean, paired = TRUE)
+</code></pre>
+    </div>
+
+    <div id="conclusion">
+      <h2>6. Conclusion</h2>
+      <p>The comparison between Squat Jump (SJ) and Countermovement Jump (CMJ) showed that jump height was systematically higher in the CMJ condition. This result is consistent with the expected contribution of the stretch-shortening cycle, which enhances force production during dynamic movements.
+      These findings indicate that, in this population, jump performance follows the same general pattern observed in healthy individuals, with a clear advantage of CMJ over SJ.</p>
+    </div>
+
+    <div id="references">
+      <h2>7. References</h2>
+      <p>Bisseling, R. W., Hof, A. L., Bredeweg, S. W., Zwerver, J., &amp; Mulder, T. (2007). Relationship between landing strategy and patellar tendinopathy in volleyball. <em>British Journal of Sports Medicine</em>, 41(7), e8.</p>
+
+      <p>Butler, R. J., Crowell, H. P., III, &amp; Davis, I. M. (2003). Lower extremity stiffness: Implications for performance and injury. <em>Clinical Biomechanics</em>, 18(6), 511-517.</p>
+
+      <p>DeVita, P., &amp; Skelly, W. A. (1992). Effect of landing stiffness on joint kinetics and energetics in the lower extremity. <em>Medicine &amp; Science in Sports &amp; Exercise</em>, 24(1), 108-115.</p>
+
+      <p>Linthorne, N. P. (2001). Analysis of standing vertical jumps using a force platform. <em>American Journal of Physics</em>, 69(11), 1198-1204.</p>
+
+      <p>Ben Zaki, B., Julia, M., Desmyttere, G., Perrey, S., &amp; Dusfour, G. (2025). Altered landing strategy during vertical jump tasks in elite volleyball players with patellar tendinopathy.</p>
+      <p class="small">Note: this reference list can still be adjusted to match exactly the final articles and citation style you decide to keep in your repository.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
