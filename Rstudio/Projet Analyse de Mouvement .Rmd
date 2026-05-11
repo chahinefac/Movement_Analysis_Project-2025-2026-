@@ -10,48 +10,63 @@ output:
     number_sections: true
 ---
 
-# Objective
-The goal of this notebook is to  
+# Statistical analysis in R
 
+This notebook presents the **statistical analysis** of the movement analysis project.
+
+The dataset used here was previously created in Python and saved as:
+
+- `data/Global_Jump_Height.xlsx`
+
+The analysis focuses on the variable:
+
+- **Jump Height (Flight Time) [cm]**
+
+for the two jump conditions:
+
+- **Squat Jump (SJ)**
+- **Countermovement Jump (CMJ)**
+
+The purpose of this R notebook is to:
+
+- describe the data,
+- compute the paired difference between CMJ and SJ,
+- assess the normality of the paired differences,
+- perform the appropriate paired statistical test,
+- estimate the effect size.
 
 # Load the data
-The data file is provided in the `data/test_data/` folder.  
-The csv file contains one individual per line and several columns, with the column name appearing in the first line of the file.
+
+The cleaned file generated in Python is imported below.
 
 ```{r load_and_analysis, echo=TRUE, message=FALSE, warning=FALSE}
 
-# =========================
-# 1. Chargement des packages
-# =========================
+
+#----- 1. Load required packages ------
+
 library(readxl)
 library(effsize)
+library(dplyr)
+library(knitr)
 
-# =========================
-# 2. Import des données
-# =========================
+#----- 2. Import the cleaned dataset -----
+
 df <- read_xlsx("data/Global_Jump_Height.xlsx")
 
-# =========================
-# 3. Vérification rapide
-# =========================
-head(df)
-str(df)
-colnames(df)
 
-# =========================
-# 4. Conversion en numérique
-# =========================
+#----- 3. Convert variables to numeric -----
+
 df$SJ_Mean <- as.numeric(df$SJ_Mean)
 df$CMJ_Mean <- as.numeric(df$CMJ_Mean)
 
-# =========================
-# 5. Calcul du Delta
-# =========================
+
+#----- 4. Compute the paired difference -----
+
 df$Delta <- df$CMJ_Mean - df$SJ_Mean
 
-# =========================
-# 6. Statistiques descriptives
-# =========================
+
+#----- 5. Descriptive statistics -----
+
 mean_SJ <- mean(df$SJ_Mean, na.rm = TRUE)
 sd_SJ   <- sd(df$SJ_Mean, na.rm = TRUE)
 
@@ -61,35 +76,65 @@ sd_CMJ   <- sd(df$CMJ_Mean, na.rm = TRUE)
 mean_delta <- mean(df$Delta, na.rm = TRUE)
 sd_delta   <- sd(df$Delta, na.rm = TRUE)
 
-mean_SJ
-sd_SJ
-mean_CMJ
-sd_CMJ
-mean_delta
-sd_delta
+desc_table <- data.frame(
+  Condition = c("SJ", "CMJ", "CMJ - SJ"),
+  Mean = c(mean_SJ, mean_CMJ, mean_delta),
+  SD = c(sd_SJ, sd_CMJ, sd_delta)
+)
 
-# =========================
-# 7. Vérification de la normalité des différences
-# =========================
+kable(
+  desc_table,
+  digits = 2,
+  caption = "Descriptive statistics for jump height"
+)
+
+
+#----- 6. Normality of paired differences -----
+
 shapiro_result <- shapiro.test(df$Delta)
-shapiro_result
 
-# =========================
-# 8. Test t apparié
-# =========================
+#----- 7. Paired t-test -----
+
 ttest_result <- t.test(df$CMJ_Mean, df$SJ_Mean, paired = TRUE)
-ttest_result
 
-# =========================
-# 9. Test non paramétrique en complément
-#    (utile si normalité non respectée)
-# =========================
-wilcox_result <- wilcox.test(df$CMJ_Mean, df$SJ_Mean, paired = TRUE)
-wilcox_result
+# ----- 8. Effect size -----
 
-# =========================
-# 10. Taille d'effet
-# =========================
 effect_size <- cohen.d(df$CMJ_Mean, df$SJ_Mean, paired = TRUE)
-effect_size
+
+infer_table <- data.frame(
+  Test = c("Shapiro-Wilk", "Paired t-test", "Effect size"),
+  Statistic = c(
+    round(unname(shapiro_result$statistic), 4),
+    round(unname(ttest_result$statistic), 4),
+    round(effect_size$estimate, 4)
+  ),
+  `p-value` = c(
+    round(shapiro_result$p.value, 4),
+    signif(ttest_result$p.value, 3),
+    NA
+  ),
+  Interpretation = c(
+    "Normality assumption respected",
+    "Significant difference between CMJ and SJ",
+    "Large effect"
+  )
+)
+
+kable(
+  infer_table,
+  caption = "Inferential statistics"
+)
 ```
+
+The results showed that:
+
+- mean jump height was 34.70 ± 2.98 cm in SJ,
+- mean jump height was 38.27 ± 3.26 cm in CMJ,
+
+- the mean paired difference (CMJ - SJ) was 3.57 ± 2.02 cm,
+
+- the normality assumption was respected (W = 0.9762, p = 0.9638),
+
+- the paired t-test was significant (t(11) = 6.1163, p = 7.56e-05),
+
+- the effect size was large (Cohen's d = 1.13)
