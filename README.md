@@ -16,6 +16,8 @@ However, in pathological conditions affecting the lower limb, such as patellar t
 
 The aim of this study is to quantify the difference in jump height between Squat Jump and Countermovement Jump in individuals with patellar tendinopathy, as an indirect measure of stretch-shortening cycle contribution.
 
+
+
 ## 1.3 Method 
 
 Each participant wore  17 IMUs (MTw Awinda, XsensTechnologies, Enschede, Netherlands) with a sampling rate of 60 Hz and placed according to the full body Xsens guidelines. The participants were requested to perform a series of vertical jump tests, each of which was to be completed on three occasions, with 30-s of rest between each jump type.
@@ -45,7 +47,7 @@ Where Jump height (flight time) is defined as *the vertical displacement of the 
 # 2. Python Project
 ## 2.1 Aim 
 
-The objective of this project is to check that all jump files are present, extract the Jump Height (Flight Time) [cm] mean value from the Squat Jump and Countermovement Jump files, and create a cleaned dataset allowing visual comparison between both jump conditions for each patient.
+The objective of this project is to check that all jump files are present, extract the `Jump Height (Flight Time) [cm]` mean value from the Squat Jump and Countermovement Jump files, and create a cleaned dataset allowing visual comparison between both jump conditions for each patient.
 
 ## 2.2. Data organization
 
@@ -65,9 +67,9 @@ A Python script was used to:
 
 - Browse all patient folders
 - Read each Excel and CSV file
-- Check the presence of SJ.xlsx and CMJ.xslx files
+- Check the presence of `SJ.xlsx` and `CMJ.xslx` files
 - Detect the correct header row
-- Identify the row corresponding to Jump Height (Flight Time)
+- Identify the row corresponding to `Jump Height (Flight Time) [cm]`
 - Extract the Mean value
 - Store the results in a structured dataset
 
@@ -84,21 +86,24 @@ The cleaned dataset is saved as :
 
 Two visualizations were generated:
 
-- Boxplot: comparison of SJ and CMJ distributions
-- Paired plot: visualization of individual differences
+- Boxplot : comparison of SJ and CMJ distributions
+- Paired plot : visualization of individual differences
 
 
 # 3. R Project
 ## 3.1 Aim
 
-The objective of the R analysis is to statistically compare Jump Height (Flight Time) [cm] between the Squat Jump (SJ) and Countermovement Jump (CMJ) conditions.
+The objective of the R analysis is to statistically compare `Jump Height (Flight Time) [cm]` between the *Squat Jump (SJ)* and *Countermovement Jump (CMJ)* conditions.
 
 ## 3.2 Statistical Analysis
 
 The statistical analysis was performed on the cleaned dataset generated with Python (`Global_Jump_Height.xlsx`). Because the same participants performed both jump conditions, the comparison between SJ and CMJ was treated as a within-subject comparison.
 
 First, a new variable was calculated :
-- $CMJ_SJ_Difference = CMJ_ Mean - SJ_ Mean$ 
+
+
+
+$CMJ_SJ_Difference = CMJ_ Mean - SJ_ Mean$ 
 
 This variable represents the individual gain in jump height from SJ to CMJ. 
 
@@ -115,14 +120,51 @@ The statistical analysis provided:
 - p-value;
 - interpretation of statistical significance.
 
+#  4. Main results
+
+The visual inspection showed a consistent increase in jump height from **SJ** to **CMJ** across participants.
+
+Descriptive statistics showed:
+
+- **SJ :**  34.70 ± 2.98 cm
+- **CMJ :**  38.27 ± 3.26 cm
+- **CMJ - SJ :**  3.57 ± 2.02 cm
+
+The paired differences were normally distributed:
+
+- **Shapiro-Wilk:** W = 0.9762, p = 0.9638
+
+The paired t-test showed a significant difference between conditions:
+
+- **t(11) = 6.1163**
+- **p = 7.56e-05**
+- **95% CI [2.28 ; 4.85]**
+
+The effect size was large:
+
+- **Cohen’s d = 1.13**
+
+# 5. Interpretation
+
+Jump height was significantly greater in the **CMJ** condition than in the **SJ** condition.
+
+Because the CMJ includes a preparatory eccentric phase whereas the SJ starts from a static position, this difference can be interpreted as an **indirect functional indicator** of stretch-shortening cycle contribution.
+
+In this sample of athletes with patellar tendinopathy, the expected CMJ advantage was preserved at the group level.
+
+
   
-# 4. Conclusion
+# 6. Conclusion
 
-The comparison between Squat Jump (SJ) and Countermovement Jump (CMJ) showed that jump height was systematically higher in the CMJ condition. This result is consistent with the expected contribution of the stretch-shortening cycle, which enhances force production during dynamic movements.
+In this sample of athletes with patellar tendinopathy, jump height was significantly greater in the Countermovement Jump than in the Squat Jump.
 
-These findings indicate that, in this population, jump performance follows the same general pattern observed in healthy individuals, with a clear advantage of CMJ over SJ.
+The mean gain of 3.57 cm, the highly significant paired t-test, and the large effect size support a robust difference between conditions.
 
-# 5. References
+These findings are consistent with the expected contribution of the stretch-shortening cycle and support the use of SJ–CMJ comparison as a simple and meaningful indirect marker of SSC-related performance.
+
+---
+
+# 7. References
 
 Linthorne, N. P. (2001). Analysis of standing vertical jumps using a force platform. American Journal of Physics, 69(11), 1198–1204.
 
