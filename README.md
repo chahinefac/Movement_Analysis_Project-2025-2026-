@@ -14,7 +14,7 @@ However, in pathological conditions affecting the lower limb, such as patellar t
 
 ## 1.2 Aim
 
-The aim of this study is to quantify the difference in jump height between Squat Jump and Countermovement Jump in individuals with patellar tendinopathy, as an indirect measure of stretch-shortening cycle contribution.
+The aim of this project was to compare jump height between Squat Jump (SJ) and Countermovement Jump (CMJ) in individuals with patellar tendinopathy, using the difference in performance between both jump modalities as an indirect indicator of stretch-shortening cycle contribution.
 
 
 
