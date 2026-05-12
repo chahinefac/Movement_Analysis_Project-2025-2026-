@@ -1,359 +1,760 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="generator" content="custom academic HTML report" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="Chahine ABDEL-HAMID" />
-<title>Movement Analysis Project 2025–2026</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movement Analysis Project</title>
+
 <style>
-:root {
-  --blue:#2c3e50;
-  --blue2:#1f4e79;
-  --light-blue:#eef5fb;
-  --text:#222;
-  --muted:#666;
-  --border:#d9e2ec;
-  --bg:#ffffff;
-  --code:#f6f8fa;
+
+/* ---- Pandoc / RMarkdown inspired layout ---- */
+
+html {
+  font-family: sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
-* { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+
 body {
-  margin:0;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  color:var(--text);
-  background:var(--bg);
-  line-height:1.65;
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #333333;
+  background-color: #ffffff;
 }
-.wrapper { display:flex; align-items:flex-start; }
-#TOC {
-  position:sticky;
-  top:0;
-  width:285px;
-  min-width:285px;
-  max-height:100vh;
-  overflow:auto;
-  padding:24px 20px;
-  background:#f8fafc;
-  border-right:1px solid var(--border);
+
+.main-container {
+  max-width: 980px;
+  margin-left: 24%;
+  margin-right: auto;
+  padding: 30px 40px 80px 40px;
 }
-#TOC h2 {
-  margin:0 0 12px 0;
-  font-size:1.05rem;
-  color:var(--blue);
-  border:0;
-}
-#TOC ul { list-style:none; padding-left:0; margin:0; }
-#TOC li { margin:7px 0; font-size:0.93rem; }
-#TOC li li { margin-left:12px; font-size:0.88rem; }
-#TOC a { color:#2c3e50; text-decoration:none; }
-#TOC a:hover { color:#0b5cab; text-decoration:underline; }
-main {
-  max-width:1050px;
-  padding:42px 54px 70px;
-  margin:0 auto;
-}
+
 .title-block {
-  border-bottom:2px solid var(--border);
-  padding-bottom:22px;
-  margin-bottom:30px;
+  margin-bottom: 35px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #dddddd;
 }
+
 h1.title {
-  color:#111827;
-  font-size:2.15rem;
-  line-height:1.25;
-  margin:0 0 12px 0;
+  font-size: 38px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #222222;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: left;
 }
-.subtitle { font-size:1.14rem; color:#374151; margin:0 0 18px 0; }
-.meta { color:var(--muted); margin:3px 0; }
-h1,h2,h3,h4 { color:var(--blue2); }
+
+.author,
+.date {
+  color: #555555;
+  font-size: 15px;
+  margin: 4px 0;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 500;
+  line-height: 1.2;
+  color: #222222;
+}
+
 h2 {
-  margin-top:46px;
-  padding-bottom:7px;
-  border-bottom:1px solid var(--border);
+  font-size: 30px;
+  margin-top: 45px;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eeeeee;
 }
-h3 { margin-top:30px; }
-p { text-align:justify; margin:12px 0; }
-a { color:#0b5cab; }
-hr { border:0; border-top:1px solid var(--border); margin:32px 0; }
-.table-wrap { overflow-x:auto; }
-table {
-  width:100%;
-  border-collapse:collapse;
-  margin:18px 0 28px;
-  font-size:0.95rem;
+
+h3 {
+  font-size: 24px;
+  margin-top: 35px;
+  margin-bottom: 15px;
 }
-th,td {
-  border:1px solid var(--border);
-  padding:10px 12px;
-  text-align:left;
-  vertical-align:top;
+
+h4 {
+  font-size: 18px;
+  margin-top: 25px;
+  margin-bottom: 10px;
 }
-th { background:#f2f6fa; color:#1f2937; }
-tr:nth-child(even) td { background:#fbfdff; }
+
+p {
+  margin: 0 0 12px 0;
+  text-align: left;
+}
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 15px;
+  padding-left: 30px;
+}
+
+li {
+  margin-bottom: 4px;
+}
+
+.section-box {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ---- Table of contents ---- */
+
+#TOC {
+  width: 20%;
+  max-height: 90%;
+  overflow: auto;
+  margin-left: 2%;
+  margin-top: 30px;
+  position: fixed;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+#TOC .toc-title {
+  font-weight: 600;
+  padding: 10px 12px;
+  border-bottom: 1px solid #dddddd;
+  background-color: #f7f7f7;
+}
+
+#TOC ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#TOC li {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+#TOC a {
+  display: block;
+  padding: 7px 12px;
+  color: #337ab7;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+#TOC a:hover {
+  color: #23527c;
+  background-color: #eeeeee;
+  text-decoration: none;
+}
+
+#TOC ul ul a {
+  padding-left: 24px;
+  font-size: 12px;
+}
+
+/* ---- Code blocks ---- */
+
 code {
-  background:var(--code);
-  padding:2px 5px;
-  border-radius:4px;
-  font-family:Consolas, Monaco, monospace;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 90%;
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+  padding: 2px 4px;
 }
+
 pre {
-  background:var(--code);
-  border:1px solid var(--border);
-  padding:14px;
-  border-radius:0 0 8px 8px;
-  overflow:auto;
-  line-height:1.45;
-  margin:0;
+  display: block;
+  padding: 12px;
+  margin: 0 0 15px 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #333333;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #f5f5f5;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  overflow-x: auto;
 }
+
+pre code {
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+  white-space: pre;
+  background-color: transparent;
+  border-radius: 0;
+}
+
 details {
-  margin:18px 0 26px;
-  border:1px solid var(--border);
-  border-radius:8px;
-  background:#fff;
+  margin: 15px 0 25px 0;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  background-color: #ffffff;
 }
+
 summary {
-  cursor:pointer;
-  padding:12px 14px;
-  background:#f7fafc;
-  color:var(--blue2);
-  font-weight:600;
-  border-radius:8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #337ab7;
+  padding: 10px 12px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #dddddd;
 }
-details[open] summary { border-bottom:1px solid var(--border); border-radius:8px 8px 0 0; }
-.result-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));
-  gap:14px;
-  margin:24px 0 28px;
+
+/* ---- Tables ---- */
+
+table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: transparent;
 }
-.result-card {
-  border:1px solid var(--border);
-  background:#f8fafc;
-  border-radius:10px;
-  padding:15px 16px;
+
+th, td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+  text-align: left;
 }
-.result-card strong {
-  display:block;
-  color:var(--blue2);
-  font-size:0.94rem;
-  margin-bottom:4px;
+
+th {
+  font-weight: 700;
+  border-bottom: 2px solid #dddddd;
+  background-color: #f9f9f9;
 }
-.result-card span { font-size:1.15rem; font-weight:600; color:#111827; }
-.figure { margin:28px 0 34px; }
-.figure img {
-  display:block;
-  max-width:92%;
-  height:auto;
-  margin:0 auto 8px;
-  border:1px solid var(--border);
-  border-radius:8px;
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
-.caption {
-  text-align:center;
-  color:var(--muted);
-  font-size:0.94rem;
-  margin-top:8px;
+
+/* ---- Figures ---- */
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px auto 25px auto;
+  border: none;
+  box-shadow: none;
 }
-.callout {
-  border-left:4px solid var(--blue2);
-  background:#f8fafc;
-  padding:12px 16px;
-  margin:18px 0;
+
+.reference-list li {
+  margin-bottom: 10px;
 }
-.references p { text-align:left; padding-left:1.2em; text-indent:-1.2em; }
-.badge {
-  display:inline-block;
-  padding:3px 8px;
-  border-radius:999px;
-  background:var(--light-blue);
-  color:var(--blue2);
-  font-size:0.85rem;
-  font-weight:600;
+
+.footer {
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 1px solid #eeeeee;
+  text-align: left;
+  color: #777777;
+  font-size: 13px;
 }
-@media (max-width: 950px) {
-  .wrapper { display:block; }
-  #TOC { position:relative; width:auto; min-width:0; max-height:none; border-right:0; border-bottom:1px solid var(--border); }
-  main { padding:30px 22px 56px; }
+
+@media screen and (max-width: 1000px) {
+  #TOC {
+    position: relative;
+    width: auto;
+    max-height: none;
+    margin: 15px 20px;
+  }
+
+  .main-container {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 25px 20px 60px 20px;
+  }
 }
-@media print {
-  #TOC { display:none; }
-  main { max-width:100%; padding:20px; }
-  details summary { display:none; }
-  details { border:0; }
-  pre { border:1px solid #ddd; }
-}
+
 </style>
 </head>
+
 <body>
-<div class="wrapper">
+
 <nav id="TOC">
-  <h2>Table of contents</h2>
+  <div class="toc-title">Contents</div>
   <ul>
-    <li><a href="#accessibility">0. Project accessibility</a></li>
-    <li><a href="#background">1. Scientific background</a></li>
-    <li><a href="#aim">2. Aim and hypothesis</a></li>
-    <li><a href="#methods">3. Methods</a></li>
-    <li><a href="#workflow">4. Analysis workflow</a></li>
-    <li><a href="#python">5. Python analysis</a></li>
-    <li><a href="#r">6. R statistical analysis</a></li>
-    <li><a href="#results">7. Results</a>
-      <ul><li><a href="#individual">7.1 Individual values</a></li><li><a href="#stats">7.2 Statistical results</a></li></ul>
-    </li>
-    <li><a href="#graphs">8. Graphical analysis</a></li>
-    <li><a href="#discussion">9. Discussion</a></li>
-    <li><a href="#conclusion">10. Conclusion</a></li>
-    <li><a href="#references">11. References</a></li>
+    <li><a href="#context">1. Context</a></li>
+    <li><a href="#aim">2. Aim</a></li>
+    <li><a href="#hypothesis">3. Hypothesis</a></li>
+    <li><a href="#methods">4. Methods</a></li>
+    <li><a href="#analysis-workflow">5. Analysis workflow</a></li>
+    <li><a href="#python-analysis">6. Python analysis</a></li>
+    <li><a href="#r-statistical-analysis">7. R statistical analysis</a></li>
+    <li><a href="#discussion">8. Discussion</a></li>
+    <li><a href="#conclusion">9. Conclusion</a></li>
+    <li><a href="#references">10. References</a></li>
   </ul>
 </nav>
-<main>
-<section class="title-block">
-  <h1 class="title">Stretch-Shortening Cycle Contribution to Vertical Jump Performance</h1>
-  <p class="subtitle">Comparison of Squat Jump and Countermovement Jump in Athletes with Patellar Tendinopathy</p>
-  <p class="meta"><strong>Author:</strong> Chahine ABDEL-HAMID</p>
-  <p class="meta"><strong>Course:</strong> Movement Analysis Project 2025–2026</p>
-  <p class="meta"><strong>Tools:</strong> Python for data extraction and visualization; R for statistical analysis</p>
-</section>
 
-<section id="accessibility">
-<h2>0. Project accessibility</h2>
-<p>The full project is available on GitHub: <a href="https://github.com/chahinefac/Movement_Analysis_Project-2025-2026-">Movement_Analysis_Project-2025-2026</a>.</p>
-</section>
+<div class="main-container">
 
-<section id="background">
-<h2>1. Scientific background</h2>
-<p>The stretch-shortening cycle (SSC) is a fundamental mechanism involved in explosive movements. It consists of a rapid eccentric action immediately followed by a concentric contraction, allowing the temporary storage and reutilization of elastic energy while enhancing force production.</p>
-<p>In vertical jumping, SSC contribution is commonly explored by comparing two jump modalities: the <strong>Squat Jump (SJ)</strong> and the <strong>Countermovement Jump (CMJ)</strong>. The SJ starts from a static position and mainly reflects concentric force production. In contrast, the CMJ includes a preparatory downward movement, which allows the use of SSC-related mechanisms.</p>
-<p>Under usual conditions, CMJ height is expected to be greater than SJ height. However, in athletes with <strong>patellar tendinopathy</strong>, jumping strategies may be altered because of pain, tendon impairment, or protective motor adaptations. It is therefore relevant to examine whether the expected CMJ advantage remains present in this pathological athletic population.</p>
-</section>
+<div class="title-block">
+<h1 class="title">Movement Analysis Project</h1>
+<p class="author">Chahine ABDEL-HAMID</p>
+<p class="date">Master 2 REHAB — Movement Analysis Project</p>
+</div>
 
-<section id="aim">
-<h2>2. Aim and hypothesis</h2>
-<h3>Aim</h3>
-<p>The aim of this project was to compare <strong>Jump Height (Flight Time) [cm]</strong> between SJ and CMJ in athletes with patellar tendinopathy, in order to explore whether the expected performance advantage associated with the SSC remained present.</p>
-<h3>Hypothesis</h3>
-<p>It was hypothesized that jump height would be greater in the CMJ condition than in the SJ condition. This difference was interpreted as an <strong>indirect functional indicator</strong> of SSC contribution.</p>
-</section>
+<div class="section-box">
+<h2 id="context">1. Context</h2>
 
-<section id="methods">
-<h2>3. Methods</h2>
+<p>
+The stretch-shortening cycle (SSC) is a fundamental component of force production in dynamic movements. It consists of a rapid eccentric phase immediately followed by a concentric contraction, allowing the storage and reutilization of elastic energy and improving force production. In vertical jumping, the SSC contributes to performance by increasing jump height when a countermovement is performed before take-off. This explains why the Countermovement Jump (CMJ) generally produces greater jump height than the Squat Jump (SJ), which is performed from a static position and relies mainly on concentric force production.
+</p>
+
+<p>
+However, in pathological conditions affecting the lower limb, such as patellar tendinopathy, movement strategies may be altered. Previous work by Ben Zaki and colleagues (2025) has shown that athletes with patellar tendinopathy can modify their jumping and landing mechanics, particularly at the knee, suggesting adaptations in the way force is produced and absorbed during explosive tasks.
+</p>
+
+<p>
+Therefore, comparing SJ and CMJ performance may provide insight into whether the functional contribution of the stretch-shortening cycle is preserved in individuals with patellar tendinopathy.
+</p>
+</div>
+
+<div class="section-box">
+<h2 id="aim">2. Aim</h2>
+
+<p>
+The aim of this project was to compare jump height between Squat Jump (SJ) and Countermovement Jump (CMJ) in individuals with patellar tendinopathy, using the difference in performance between both jump modalities as an indirect indicator of stretch-shortening cycle contribution.
+</p>
+</div>
+
+<div class="section-box">
+<h2 id="hypothesis">3. Hypothesis</h2>
+
+<p>
+It was hypothesized that jump height would be greater in the CMJ condition than in the SJ condition. This difference was interpreted as an indirect functional indicator of SSC contribution.
+</p>
+</div>
+
+<div class="section-box">
+<h2 id="methods">4. Methods</h2>
+
 <h3>Participants</h3>
-<p>The sample included <strong>12 high-level athletes diagnosed with patellar tendinopathy</strong>. Each participant performed both jump conditions, which justified a within-subject paired analysis.</p>
+
+<p>
+The sample included 12 high-level athletes diagnosed with patellar tendinopathy. Each participant performed both jump conditions, which justified a within-subject paired analysis.
+</p>
+
 <h3>Outcome measure</h3>
-<p>The primary outcome extracted from each file was <strong>Jump Height (Flight Time) [cm]</strong>. Only the <strong>Mean</strong> value was retained for each condition.</p>
-<p>Jump height derived from flight time estimates the vertical displacement of the center of mass during the airborne phase, assuming ballistic motion and equivalent center of mass position at take-off and landing.</p>
-<div class="callout"><strong>Formula:</strong> <code>h = (t² × g) / 8</code></div>
+
+<p>
+The primary outcome extracted from each file was <b>Jump Height (Flight Time) [cm]</b>. Only the <i>Mean</i> value was retained for each condition.
+</p>
+
+<p>
+Jump height derived from flight time estimates the vertical displacement of the center of mass during the airborne phase, assuming ballistic motion and equivalent center of mass position at take-off and landing.
+</p>
+
+<p>Formula:</p>
+<p><code>h = (t² × g) / 8</code></p>
+
 <h3>Data organization</h3>
-<div class="table-wrap">
+
 <table>
-<thead><tr><th>Element</th><th>Description</th></tr></thead>
-<tbody>
-<tr><td><code>SJ.xlsx</code></td><td>File containing Squat Jump results for each participant.</td></tr>
-<tr><td><code>CMJ.xlsx</code></td><td>File containing Countermovement Jump results for each participant.</td></tr>
-<tr><td><code>Jump Height (Flight Time) [cm]</code></td><td>Main variable extracted for the analysis.</td></tr>
-<tr><td><code>Global_Jump_Height.xlsx</code></td><td>Cleaned paired dataset generated with Python and used in R.</td></tr>
-<tr><td><code>Plot/</code></td><td>Folder containing the exported figures used in this report.</td></tr>
-</tbody>
+  <tr>
+    <th>Element</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><i>SJ.xlsx</i></td>
+    <td>File containing Squat Jump results for each participant.</td>
+  </tr>
+  <tr>
+    <td><i>CMJ.xlsx</i></td>
+    <td>File containing Countermovement Jump results for each participant.</td>
+  </tr>
+  <tr>
+    <td><b>Jump Height (Flight Time) [cm]</b></td>
+    <td>Main variable extracted for the analysis.</td>
+  </tr>
+  <tr>
+    <td><i>Global_Jump_Height.xlsx</i></td>
+    <td>Cleaned paired dataset generated with Python and used in R.</td>
+  </tr>
+  <tr>
+    <td><i>Plot/</i></td>
+    <td>Folder containing the exported figures used in this report.</td>
+  </tr>
 </table>
 </div>
-</section>
 
-<section id="workflow">
-<h2>4. Analysis workflow</h2>
-<p>The project followed a two-step workflow. Python was used first to automate data extraction, clean the dataset, and generate descriptive visualizations. R was then used to perform the statistical analysis.</p>
-<div class="table-wrap"><table>
-<thead><tr><th>Step</th><th>Tool</th><th>Purpose</th></tr></thead>
-<tbody>
-<tr><td>Data extraction</td><td>Python</td><td>Extract mean jump height from SJ and CMJ files.</td></tr>
-<tr><td>Data cleaning</td><td>Python</td><td>Create a paired dataset with one row per participant.</td></tr>
-<tr><td>Visualization</td><td>Python</td><td>Generate a boxplot and a paired plot.</td></tr>
-<tr><td>Statistical analysis</td><td>R</td><td>Test whether CMJ height was significantly greater than SJ height.</td></tr>
-</tbody></table></div>
-</section>
+<div class="section-box">
+<h2 id="analysis-workflow">5. Analysis workflow</h2>
 
-<section id="python">
-<h2>5. Python analysis</h2>
-<p>The Python script browsed all participant folders, identified the relevant Excel files, detected the correct header row, extracted the row corresponding to <code>Jump Height (Flight Time) [cm]</code>, and retained the <code>Mean</code> value for each condition.</p>
-<details><summary>Show Python extraction code</summary><pre><code>import os
+<p>
+The project followed a two-step workflow. Python was used first to automate data extraction, clean the dataset, and generate descriptive visualizations. R was then used to perform the statistical analysis.
+</p>
+
+<table>
+  <tr>
+    <th>Step</th>
+    <th>Tool</th>
+    <th>Purpose</th>
+  </tr>
+  <tr>
+    <td>Data extraction</td>
+    <td>Python</td>
+    <td>Extract mean jump height from SJ and CMJ files.</td>
+  </tr>
+  <tr>
+    <td>Data cleaning</td>
+    <td>Python</td>
+    <td>Create a paired dataset with one row per participant.</td>
+  </tr>
+  <tr>
+    <td>Visualization</td>
+    <td>Python</td>
+    <td>Generate a boxplot and a paired plot.</td>
+  </tr>
+  <tr>
+    <td>Statistical analysis</td>
+    <td>R</td>
+    <td>Test whether CMJ height was significantly greater than SJ height.</td>
+  </tr>
+</table>
+</div>
+
+<div class="section-box">
+<h2 id="python-analysis">6. Python analysis</h2>
+
+<p>
+Python was used to automate data extraction, clean the dataset, and generate visualizations. The full code is provided below to ensure transparency and reproducibility.
+</p>
+
+<h3>6.1 Data extraction and cleaning</h3>
+
+<p>
+This section extracts the variable <b>Jump Height (Flight Time) [cm]</b> from each participant folder inside the <i>data/</i> directory. Only the files <i>SJ.xlsx</i> and <i>CMJ.xlsx</i> were used.
+</p>
+
+<p>
+Because the Excel files exported from the force-platform software contained additional formatting and metadata, the raw files could not be analyzed directly. A custom Python function was therefore implemented to automatically identify the row containing the true variable headers and reconstruct a clean dataframe before extraction.
+</p>
+
+<p>
+The script then searched specifically for the variable <b>Jump Height (Flight Time) [cm]</b> and extracted the corresponding <i>Mean</i> value for each jump condition. Only the mean value was retained in order to obtain one representative value per participant for both SJ and CMJ conditions.
+</p>
+
+<p>
+All extracted values were converted into numeric format and merged into a paired dataframe containing one row per participant and two variables:
+</p>
+
+<ul>
+  <li><b>SJ_Mean</b></li>
+  <li><b>CMJ_Mean</b></li>
+</ul>
+
+<p>
+This cleaned dataset was finally exported as <i>Global_Jump_Height.xlsx</i> and used for the subsequent statistical analysis performed in R.
+</p>
+
+<details open>
+<summary>Show Python code</summary>
+
+<pre><code class="language-python">import os
 import pandas as pd
 
-data_folder = &quot;data&quot;
+#----- Creation of the dataframe -----
 
+# Folder containing one subfolder per participant
+data_folder = "data"
+
+# Function used to rebuild the dataframe with the correct headers
 def read_clean_df(file_path):
     df = pd.read_excel(file_path, header=None)
 
-    # Find the row containing &quot;Name&quot;
-    header_row = df[df.apply(lambda row: row.astype(str).str.contains(&quot;Name&quot;).any(), axis=1)].index[0]
+    # Find the row containing the true headers ("Name")
+    header_row = df[df.apply(lambda row: row.astype(str).str.contains("Name").any(), axis=1)].index[0]
 
-    # Rebuild the dataframe with the correct headers
+    # Rebuild the dataframe using the detected header row
     df.columns = df.iloc[header_row]
     df = df.iloc[header_row + 1:].reset_index(drop=True)
 
     return df
 
+# List used to store the final cleaned values
 data = []
 
+# Browse all participant folders
 for patient in os.listdir(data_folder):
     patient_path = os.path.join(data_folder, patient)
 
+    # Ignore files that are not folders
     if not os.path.isdir(patient_path):
         continue
 
-    values = {&quot;SJ_Mean&quot;: None, &quot;CMJ_Mean&quot;: None}
+    # Store one value for each jump condition
+    values = {"SJ_Mean": None, "CMJ_Mean": None}
 
-    for file in [&quot;SJ.xlsx&quot;, &quot;CMJ.xlsx&quot;]:
+    # Read only SJ and CMJ files
+    for file in ["SJ.xlsx", "CMJ.xlsx"]:
         file_path = os.path.join(patient_path, file)
 
+        # Skip if the expected file does not exist
         if not os.path.exists(file_path):
             continue
 
         try:
             df = read_clean_df(file_path)
-            row = df[df[&quot;Name&quot;] == &quot;Jump Height (Flight Time) [cm]&quot;]
-            mean_value = float(row[&quot;Mean&quot;].values[0])
 
-            if file == &quot;SJ.xlsx&quot;:
-                values[&quot;SJ_Mean&quot;] = mean_value
-            else:
-                values[&quot;CMJ_Mean&quot;] = mean_value
+            # Select the row corresponding to Jump Height
+            row = df[df["Name"] == "Jump Height (Flight Time) [cm]"]
+
+            # Extract the Mean value
+            mean_value = float(row["Mean"].iloc[0])
+
+            # Store the value according to the jump condition
+            if file == "SJ.xlsx":
+                values["SJ_Mean"] = mean_value
+            elif file == "CMJ.xlsx":
+                values["CMJ_Mean"] = mean_value
 
         except Exception as e:
-            print(f&quot;{patient} - {file}: error -&gt; {e}&quot;)
+            print(f"Error with {file_path}: {e}")
 
-    data.append({
-        &quot;Patient&quot;: patient,
-        &quot;SJ_Mean&quot;: values[&quot;SJ_Mean&quot;],
-        &quot;CMJ_Mean&quot;: values[&quot;CMJ_Mean&quot;]
-    })
+    # Add participant data only if both conditions are available
+    if values["SJ_Mean"] is not None and values["CMJ_Mean"] is not None:
+        values["Participant"] = patient
+        data.append(values)
 
+# Create the final dataframe
 df_final = pd.DataFrame(data)
-df_final.to_excel(&quot;data/Global_Jump_Height.xlsx&quot;, index=False)</code></pre></details>
-<p>This step produced the cleaned file <code>Global_Jump_Height.xlsx</code>, which was used as the input for the R statistical analysis.</p>
-</section>
 
-<section id="r">
-<h2>6. R statistical analysis</h2>
-<p>R was used for the inferential analysis. Since the same participants performed both jump conditions, the comparison was treated as a paired within-subject analysis.</p>
-<p>The paired difference was calculated as <code>Delta = CMJ_Mean - SJ_Mean</code>. Normality of paired differences was assessed using the Shapiro-Wilk test. Since the normality assumption was respected, a paired Student t-test was used. Cohen's d was calculated to estimate the magnitude of the effect.</p>
-<details><summary>Show R statistical code</summary><pre><code>library(readxl)
+# Reorder columns
+df_final = df_final[["Participant", "SJ_Mean", "CMJ_Mean"]]
+
+# Export the cleaned dataset
+df_final.to_excel("data/Global_Jump_Height.xlsx", index=False)
+
+# Display the final dataframe
+df_final</code></pre>
+</details>
+
+<h3>6.2 Data visualization</h3>
+
+<p>
+Two figures were generated. The boxplot provides a distribution-level comparison between SJ and CMJ, while the paired plot shows the individual change from SJ to CMJ for each participant.
+</p>
+
+<details open>
+<summary>Show Python code</summary>
+
+<pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read the cleaned file created in the previous step
+df = pd.read_excel("data/Global_Jump_Height.xlsx")
+
+# ----- BOXPLOT -----
+plt.figure(figsize=(8, 6))
+plt.boxplot([df["SJ_Mean"], df["CMJ_Mean"]], tick_labels=["SJ", "CMJ"])
+plt.ylabel("Jump Height (cm)")
+plt.title("SJ Height [cm] vs CMJ Height [cm]")
+plt.grid(color="grey", linestyle="--", alpha=0.5)
+plt.show()
+
+# ----- PAIRED PLOT -----
+plt.figure(figsize=(8, 6))
+
+# Plot one line per participant
+for i in range(len(df)):
+    plt.plot(
+        ["SJ", "CMJ"],
+        [df.iloc[i]["SJ_Mean"], df.iloc[i]["CMJ_Mean"]],
+        marker="o"
+    )
+
+# Add the group mean
+sj_mean = df["SJ_Mean"].mean()
+cmj_mean = df["CMJ_Mean"].mean()
+plt.plot(["SJ", "CMJ"], [sj_mean, cmj_mean], color="red", linewidth=1, marker="o", linestyle="--")
+
+plt.ylabel("Jump Height (cm)")
+plt.title("Individual Changes from SJ to CMJ")
+plt.grid(color="grey", linestyle="--", alpha=0.5)
+plt.show()</code></pre>
+</details>
+
+<h3>6.3 Python outputs</h3>
+
+<h4>Boxplot: SJ vs CMJ</h4>
+<img src="results/SJ_Height_vs_CMJ_Height.png" width="700">
+
+<p>
+The boxplot suggests that jump height values were generally higher in the CMJ condition than in the SJ condition.
+</p>
+
+<h4>Paired plot: individual changes from SJ to CMJ</h4>
+<img src="results/Individual_Changes_from_SJ_to_CMJ.png" width="700">
+
+<p>
+The paired plot shows that most participants increased their jump height from SJ to CMJ, suggesting a positive functional contribution of the stretch-shortening cycle.
+</p>
+
+<h3>6.4 Interpretation of the Python output</h3>
+
+<p>
+At this stage, Python provided a clean paired dataset, a distribution-level comparison through the boxplot, and an individual-level comparison through the paired plot. These outputs prepared the data for the statistical analysis performed in R.
+</p>
+</div>
+
+<div class="section-box">
+<h2 id="r-statistical-analysis">7. R statistical analysis</h2>
+
+<p>
+R was used to perform the inferential statistical analysis on the cleaned dataset generated previously in Python. The objective of this analysis was to determine whether jump height differed significantly between the SJ and CMJ conditions.
+</p>
+
+<p>
+The full statistical workflow is presented below to ensure transparency and reproducibility.
+</p>
+
+<h3>7.1 Statistical analysis in R</h3>
+
+<p>
+This notebook presents the statistical analysis of the movement analysis project.
+</p>
+
+<p>
+The dataset used here was previously created in Python and saved as:
+</p>
+
+<p><i>data/Global_Jump_Height.xlsx</i></p>
+
+<p>The analysis focuses on the variable:</p>
+
+<ul>
+  <li><b>Jump Height (Flight Time) [cm]</b></li>
+</ul>
+
+<p>for the two jump conditions:</p>
+
+<ul>
+  <li>Squat Jump (SJ)</li>
+  <li>Countermovement Jump (CMJ)</li>
+</ul>
+
+<p>The purpose of this R notebook is to:</p>
+
+<ul>
+  <li>describe the data,</li>
+  <li>compute the paired difference between CMJ and SJ,</li>
+  <li>assess the normality of the paired differences,</li>
+  <li>perform the appropriate paired statistical test,</li>
+  <li>estimate the effect size.</li>
+</ul>
+
+<h3>7.2 Load required packages and import the cleaned dataset</h3>
+
+<p>The cleaned file generated in Python is imported below.</p>
+
+<details open>
+<summary>Show R code</summary>
+<pre><code class="language-r">library(readxl)
+library(effsize)
 library(dplyr)
 library(knitr)
-library(effsize)
 
-# Import the cleaned dataset generated by Python
-df &lt;- read_xlsx(&quot;data/Global_Jump_Height.xlsx&quot;)
+df &lt;- read_xlsx("data/Global_Jump_Height.xlsx")</code></pre>
+</details>
 
-# Convert variables to numeric
-df$SJ_Mean  &lt;- as.numeric(df$SJ_Mean)
+<h3>7.3 Convert variables to numeric and compute the paired difference</h3>
+
+<p>
+The two main variables (<b>SJ_Mean</b> and <b>CMJ_Mean</b>) must be treated as numeric variables.
+</p>
+
+<p>Then, a new variable called <b>Delta</b> is created:</p>
+
+<p><code>Delta = CMJ_Mean - SJ_Mean</code></p>
+
+<p>
+This variable represents the individual gain in jump height between the two conditions. It is central to the statistical reasoning because the paired comparison relies on the within-subject difference.
+</p>
+
+<details open>
+<summary>Show R code</summary>
+<pre><code class="language-r">df$SJ_Mean &lt;- as.numeric(df$SJ_Mean)
 df$CMJ_Mean &lt;- as.numeric(df$CMJ_Mean)
 
-# Compute paired difference
-df$Delta &lt;- df$CMJ_Mean - df$SJ_Mean
+df$Delta &lt;- df$CMJ_Mean - df$SJ_Mean</code></pre>
+</details>
 
-# Descriptive statistics
-mean_SJ &lt;- mean(df$SJ_Mean, na.rm = TRUE)
+<h3>7.4 Table of individual values</h3>
+
+<p>
+Before summarizing the results at the group level, it is useful to present the individual values.
+</p>
+
+<p>This table shows, for each participant:</p>
+
+<ul>
+  <li>the mean jump height in SJ,</li>
+  <li>the mean jump height in CMJ,</li>
+  <li>the paired difference (CMJ - SJ).</li>
+</ul>
+
+<details open>
+<summary>Show R code</summary>
+<pre><code class="language-r">individual_table &lt;- df %&gt;%
+  select(Patient, SJ_Mean, CMJ_Mean, Delta)
+
+kable(
+  individual_table,
+  digits = 2,
+  caption = "Individual jump height values and paired differences"
+)</code></pre>
+</details>
+
+<table>
+  <tr><th>Patient</th><th>SJ_Mean</th><th>CMJ_Mean</th><th>Delta</th></tr>
+  <tr><td>BOU Jul</td><td>35.3</td><td>39.7</td><td>4.4</td></tr>
+  <tr><td>DEL Pie</td><td>32.8</td><td>36.9</td><td>4.1</td></tr>
+  <tr><td>FRO Sim</td><td>35.8</td><td>36.5</td><td>0.7</td></tr>
+  <tr><td>GIB Val</td><td>31.9</td><td>35.3</td><td>3.4</td></tr>
+  <tr><td>IYE Dan</td><td>33.0</td><td>35.8</td><td>2.8</td></tr>
+  <tr><td>JOK And</td><td>37.3</td><td>40.8</td><td>3.5</td></tr>
+  <tr><td>LOU Art</td><td>37.7</td><td>41.6</td><td>3.9</td></tr>
+  <tr><td>MAR Hau</td><td>29.4</td><td>35.3</td><td>5.9</td></tr>
+  <tr><td>NOW Ade</td><td>39.3</td><td>46.1</td><td>6.8</td></tr>
+  <tr><td>PIE Nat</td><td>32.5</td><td>37.8</td><td>5.3</td></tr>
+  <tr><td>RES Gui</td><td>37.9</td><td>37.7</td><td>-0.2</td></tr>
+  <tr><td>SEC Tim</td><td>33.5</td><td>35.7</td><td>2.2</td></tr>
+</table>
+
+<p>
+A positive value in the Delta column indicates that the participant jumped higher in the CMJ condition than in the SJ condition. A negative value would indicate the opposite.
+</p>
+
+<h3>7.5 Descriptive statistics</h3>
+
+<p>The next step is to summarize the data at the group level.</p>
+
+<p>We compute:</p>
+
+<ul>
+  <li>the mean and standard deviation for SJ_Mean,</li>
+  <li>the mean and standard deviation for CMJ_Mean,</li>
+  <li>the mean and standard deviation for Delta.</li>
+</ul>
+
+<p>
+These descriptive statistics provide an overview of the performance in each condition.
+</p>
+
+<details open>
+<summary>Show R code</summary>
+<pre><code class="language-r">mean_SJ &lt;- mean(df$SJ_Mean, na.rm = TRUE)
 sd_SJ   &lt;- sd(df$SJ_Mean, na.rm = TRUE)
 
 mean_CMJ &lt;- mean(df$CMJ_Mean, na.rm = TRUE)
@@ -362,164 +763,331 @@ sd_CMJ   &lt;- sd(df$CMJ_Mean, na.rm = TRUE)
 mean_delta &lt;- mean(df$Delta, na.rm = TRUE)
 sd_delta   &lt;- sd(df$Delta, na.rm = TRUE)
 
-# Normality of paired differences
-shapiro_result &lt;- shapiro.test(df$Delta)
+desc_table &lt;- data.frame(
+  Condition = c("SJ", "CMJ", "CMJ - SJ"),
+  Mean = c(mean_SJ, mean_CMJ, mean_delta),
+  SD = c(sd_SJ, sd_CMJ, sd_delta)
+)
 
-# Paired t-test
-ttest_result &lt;- t.test(df$CMJ_Mean, df$SJ_Mean, paired = TRUE)
+kable(
+  desc_table,
+  digits = 2,
+  caption = "Descriptive statistics for jump height"
+)</code></pre>
+</details>
 
-# Effect size
-effect_size &lt;- cohen.d(df$CMJ_Mean, df$SJ_Mean, paired = TRUE)</code></pre></details>
-</section>
+<table>
+  <tr><th>Condition</th><th>Mean</th><th>SD</th></tr>
+  <tr><td>SJ</td><td>34.70</td><td>2.98</td></tr>
+  <tr><td>CMJ</td><td>38.27</td><td>3.26</td></tr>
+  <tr><td>CMJ - SJ</td><td>3.57</td><td>2.02</td></tr>
+</table>
 
-<section id="results">
-<h2>7. Results</h2>
-<div class="result-grid">
-  <div class="result-card"><strong>SJ</strong><span>34.70 ± 2.98 cm</span></div>
-  <div class="result-card"><strong>CMJ</strong><span>38.27 ± 3.26 cm</span></div>
-  <div class="result-card"><strong>CMJ − SJ</strong><span>3.57 ± 2.02 cm</span></div>
-  <div class="result-card"><strong>Effect size</strong><span>Cohen's d = 1.77</span></div>
+<p>
+If the mean value is higher in CMJ than in SJ, this already suggests a performance advantage in the countermovement condition.
+</p>
+
+<p>
+However, descriptive statistics alone are not sufficient to conclude whether the observed difference is statistically reliable.
+</p>
+
+<h3>7.6 Normality of paired differences</h3>
+
+<p>
+Because the main inferential test planned in this project is a paired Student t-test, we first need to verify whether the paired differences are approximately normally distributed.
+</p>
+
+<p>Importantly, the normality assumption is tested on:</p>
+
+<p><code>Delta = CMJ - SJ</code></p>
+
+<p>and not separately on SJ_Mean and CMJ_Mean.</p>
+
+<p>
+This is because the paired t-test is based on the distribution of the within-subject differences.
+</p>
+
+<details open>
+<summary>Show R code</summary>
+<pre><code class="language-r">shapiro_result &lt;- shapiro.test(df$Delta)
+shapiro_result</code></pre>
+</details>
+
+<pre>Shapiro-Wilk normality test
+
+data:  df$Delta
+W = 0.9762, p-value = 0.9638</pre>
+
+<h4>Interpretation of the normality test</h4>
+
+<p>
+The null hypothesis of the Shapiro-Wilk test is that the data are normally distributed.
+</p>
+
+<p>
+If p > 0.05, the normality assumption is considered acceptable. If p < 0.05, normality would be questioned.
+</p>
+
+<p>
+In this project, the p-value is greater than 0.05, which means that the normality assumption is not violated. This supports the use of a paired t-test for the next step.
+</p>
+
+<h3>7.7 Paired t-test</h3>
+
+<details open>
+<summary>Show R code</summary>
+<pre><code class="language-r">ttest_result &lt;- t.test(df$CMJ_Mean, df$SJ_Mean, paired = TRUE)
+ttest_result</code></pre>
+</details>
+
+<pre>Paired t-test
+
+data:  df$CMJ_Mean and df$SJ_Mean
+t = 6.1163, df = 11, p-value = 7.56e-05
+
+alternative hypothesis:
+true mean difference is not equal to 0
+
+95 percent confidence interval:
+2.283187 4.850146
+
+sample estimates:
+mean difference
+3.566667</pre>
+
+<h4>Interpretation of the paired t-test</h4>
+
+<p>The paired t-test provides several important pieces of information:</p>
+
+<ul>
+  <li>the t statistic,</li>
+  <li>the degrees of freedom,</li>
+  <li>the p-value,</li>
+  <li>the confidence interval of the mean difference,</li>
+  <li>the estimated mean difference between conditions.</li>
+</ul>
+
+<p>If the p-value is below 0.05, the difference between CMJ and SJ is considered statistically significant.</p>
+
+<p>
+Here, the result indicates that jump height is significantly greater in the CMJ condition than in the SJ condition.
+</p>
+
+<h3>7.8 Effect size</h3>
+
+<p>
+A statistically significant p-value tells us that a difference exists, but it does not tell us how large that difference is in practical terms.
+</p>
+
+<p>
+To address this, we compute Cohen’s d, which provides a standardized effect size.
+</p>
+
+<details open>
+<summary>Show R code</summary>
+<pre><code class="language-r">effect_size &lt;- cohen.d(df$CMJ_Mean, df$SJ_Mean, paired = TRUE)
+effect_size</code></pre>
+</details>
+
+<pre>Cohen's d
+
+d estimate: 1.134237 (large)
+
+95 percent confidence interval:
+0.6412374 1.6272367</pre>
+
+<h4>Interpretation of the effect size</h4>
+
+<p>Cohen’s d is commonly interpreted as follows:</p>
+
+<ul>
+  <li>around 0.2: small effect</li>
+  <li>around 0.5: medium effect</li>
+  <li>around 0.8 or more: large effect</li>
+</ul>
+
+<p>
+In this project, the effect size is large, which indicates that the difference between SJ and CMJ is not only statistically significant, but also substantial in magnitude.
+</p>
+
+<h3>7.9 Full statistical analysis</h3>
+
+<p>This table provides a compact summary of the main statistical conclusions:</p>
+
+<ul>
+  <li>the normality assumption was respected,</li>
+  <li>the paired difference was statistically significant,</li>
+  <li>the effect size was large.</li>
+</ul>
+
+<details open>
+<summary>Show R code</summary>
+<pre><code class="language-r">infer_table &lt;- data.frame(
+  Test = c("Shapiro-Wilk", "Paired t-test", "Effect size"),
+  Statistic = c(
+    round(unname(shapiro_result$statistic), 4),
+    round(unname(ttest_result$statistic), 4),
+    round(effect_size$estimate, 4)
+  ),
+  `p-value` = c(
+    round(shapiro_result$p.value, 4),
+    signif(ttest_result$p.value, 3),
+    NA
+  ),
+  Interpretation = c(
+    "Normality assumption respected",
+    "Significant difference between CMJ and SJ",
+    "Large effect"
+  )
+)
+
+kable(
+  infer_table,
+  caption = "Inferential statistics"
+)</code></pre>
+</details>
+
+<table>
+  <tr><th>Test</th><th>Statistic</th><th>p-value</th><th>Interpretation</th></tr>
+  <tr><td>Shapiro-Wilk</td><td>0.9762</td><td>0.9638</td><td>Normality assumption respected</td></tr>
+  <tr><td>Paired t-test</td><td>6.1163</td><td>0.0000756</td><td>Significant difference between CMJ and SJ</td></tr>
+  <tr><td>Effect size</td><td>1.1342</td><td>NA</td><td>Large effect</td></tr>
+</table>
+
+<p>The statistical analysis shows that:</p>
+
+<ul>
+  <li>mean jump height was 34.70 ± 2.98 cm in the SJ condition,</li>
+  <li>mean jump height was 38.27 ± 3.26 cm in the CMJ condition,</li>
+  <li>mean paired difference (CMJ - SJ) was 3.57 ± 2.02 cm.</li>
+</ul>
+
+<p>The paired differences were normally distributed:</p>
+
+<p><code>Shapiro-Wilk: W = 0.9762, p = 0.9638</code></p>
+
+<p>The paired t-test showed a statistically significant difference between conditions:</p>
+
+<ul>
+  <li><code>t(11) = 6.1163</code></li>
+  <li><code>p = 7.56e-05</code></li>
+  <li><code>95% CI = [2.28 ; 4.85]</code></li>
+</ul>
+
+<p>The effect size was large:</p>
+
+<p><code>Cohen’s d = 1.13</code></p>
+
+<p>
+Taken together, these results indicate that jump height was significantly greater in the CMJ condition than in the SJ condition.
+</p>
+
+<p>
+Because the CMJ includes a preparatory eccentric phase whereas the SJ starts from a static position, this difference can be interpreted as an indirect functional indicator of stretch-shortening cycle contribution.
+</p>
+
+<p>
+In this sample of athletes with patellar tendinopathy, the expected performance advantage of the CMJ therefore remained present at the group level.
+</p>
 </div>
 
-<h3 id="individual">7.1 Individual values</h3>
-<p>The table below shows the paired values used for the statistical analysis. A positive delta indicates a higher jump height in CMJ than in SJ for the same participant.</p>
-<div class="table-wrap"><table>
-<thead><tr><th>Participant</th><th>SJ Mean (cm)</th><th>CMJ Mean (cm)</th><th>Delta: CMJ − SJ (cm)</th></tr></thead>
-<tbody>
-<tr><td>BOU Jul</td><td>35.30</td><td>39.70</td><td>4.40</td></tr>
-<tr><td>DEL Pie</td><td>32.80</td><td>36.90</td><td>4.10</td></tr>
-<tr><td>FRO Sim</td><td>35.80</td><td>36.50</td><td>0.70</td></tr>
-<tr><td>GIB Val</td><td>31.90</td><td>35.30</td><td>3.40</td></tr>
-<tr><td>IYE Dan</td><td>33.00</td><td>35.80</td><td>2.80</td></tr>
-<tr><td>JOK And</td><td>37.30</td><td>40.80</td><td>3.50</td></tr>
-<tr><td>LOU Art</td><td>37.70</td><td>41.60</td><td>3.90</td></tr>
-<tr><td>MAR Hau</td><td>29.40</td><td>35.30</td><td>5.90</td></tr>
-<tr><td>NOW Ade</td><td>39.30</td><td>46.10</td><td>6.80</td></tr>
-<tr><td>PIE Nat</td><td>32.50</td><td>37.80</td><td>5.30</td></tr>
-<tr><td>RES Gui</td><td>37.90</td><td>37.70</td><td>-0.20</td></tr>
-<tr><td>SEC Tim</td><td>33.50</td><td>35.70</td><td>2.20</td></tr>
-</tbody></table></div>
+<div class="section-box">
+<h2 id="discussion">8. Discussion</h2>
 
-<h3 id="stats">7.2 Statistical results</h3>
-<div class="table-wrap"><table>
-<thead><tr><th>Condition</th><th>Mean jump height</th><th>Standard deviation</th></tr></thead>
-<tbody>
-<tr><td>SJ</td><td>34.70 cm</td><td>2.98 cm</td></tr>
-<tr><td>CMJ</td><td>38.27 cm</td><td>3.26 cm</td></tr>
-<tr><td>CMJ − SJ</td><td>3.57 cm</td><td>2.02 cm</td></tr>
-</tbody></table></div>
-<div class="table-wrap"><table>
-<thead><tr><th>Test</th><th>Statistic</th><th>p-value</th><th>Interpretation</th></tr></thead>
-<tbody>
-<tr><td>Shapiro-Wilk test</td><td>W = 0.9762</td><td>p = 0.9638</td><td>Normality assumption respected.</td></tr>
-<tr><td>Paired t-test</td><td>t(11) = 6.1163</td><td>p = 7.56e-05</td><td>Significant difference between CMJ and SJ.</td></tr>
-<tr><td>95% confidence interval</td><td>[2.28 ; 4.85] cm</td><td>—</td><td>CMJ height was reliably greater than SJ height.</td></tr>
-<tr><td>Cohen's d</td><td>d = 1.77</td><td>—</td><td>Large effect size.</td></tr>
-</tbody></table></div>
-<p>The results showed that jump height was significantly greater in the CMJ condition than in the SJ condition. The mean paired difference was <strong>3.57 cm</strong>, with a large effect size, indicating that the observed difference was not only statistically significant but also meaningful in practical terms.</p>
-</section>
-
-<section id="interpretation">
-<h2>8. Interpretation of the results</h2>
+<h3>8.1 Main findings</h3>
 
 <p>
-The statistical results indicate a clear and robust difference between the two jump conditions.
-On average, participants jumped <strong>34.70 cm</strong> in the squat jump condition and
-<strong>38.27 cm</strong> in the countermovement jump condition. The mean paired difference
-(<strong>CMJ − SJ</strong>) was therefore <strong>3.57 cm</strong>, meaning that the countermovement
-condition produced a higher jump height at the group level.
+The purpose of this project was to compare jump height between Squat Jump (SJ) and Countermovement Jump (CMJ) in athletes with patellar tendinopathy, using the difference between both jump modalities as an indirect functional indicator of stretch-shortening cycle (SSC) contribution.
 </p>
 
 <p>
-The individual values show that this result was not only driven by the group mean. Most participants
-presented a positive delta, meaning that their CMJ height was greater than their SJ height. Only one
-participant showed a very small negative difference (<strong>-0.20 cm</strong>), while all other participants
-showed an increase from SJ to CMJ. This supports the idea that the CMJ advantage was broadly consistent
-across the sample.
+The statistical analysis showed that jump height was significantly greater in the CMJ condition than in the SJ condition. The mean paired difference between conditions was 3.57 ± 2.02 cm, and the paired t-test demonstrated a statistically significant effect with a large effect size.
+</p>
+
+<h3>8.2 Interpretation of SSC contribution</h3>
+
+<p>
+From a biomechanical perspective, these findings are consistent with the expected contribution of the SSC during vertical jump tasks. Unlike the SJ, the CMJ includes a preparatory eccentric phase before propulsion, allowing the muscle-tendon unit to store and reutilize elastic energy during the concentric phase.
 </p>
 
 <p>
-The Shapiro-Wilk test showed that the distribution of paired differences was compatible with normality
-(<strong>W = 0.9762</strong>, <strong>p = 0.9638</strong>). This result justified the use of a paired Student
-t-test, because the paired t-test assumes that the within-subject differences are approximately normally
-distributed.
+In addition to elastic energy reutilization, the countermovement phase may also enhance performance through neural and mechanical potentiation mechanisms, contributing to greater force production and movement efficiency.
 </p>
 
 <p>
-The paired t-test showed a statistically significant difference between SJ and CMJ
-(<strong>t(11) = 6.1163</strong>, <strong>p = 7.56e-05</strong>). This means that the probability of observing
-such a difference by random variation alone is very low. The 95% confidence interval ranged from
-<strong>2.28 cm</strong> to <strong>4.85 cm</strong>, indicating that the true mean advantage of CMJ over SJ
-was likely positive and clinically meaningful within this sample.
+The greater jump height observed in the CMJ condition therefore supports the interpretation that the SSC contributed positively to jump performance in this sample.
+</p>
+
+<h3>8.3 Clinical relevance for patellar tendinopathy</h3>
+
+<p>
+Because all participants presented patellar tendinopathy, these results may provide insight into how explosive lower-limb function is maintained despite tendon pathology.
 </p>
 
 <p>
-The effect size was large (<strong>Cohen's d = 1.77</strong>), showing that the magnitude of the SJ-CMJ
-difference was substantial. Therefore, the result should not be interpreted only as statistically significant,
-but also as practically relevant for vertical jump performance.
+Interestingly, the expected performance advantage of the CMJ remained present at the group level. This suggests that, despite potential alterations in movement strategies described in previous literature, participants were still able to benefit functionally from the countermovement phase during jumping.
 </p>
 
 <p>
-From a biomechanical perspective, this pattern is consistent with the expected role of the
-stretch-shortening cycle. The CMJ includes a preparatory eccentric phase, whereas the SJ starts from a
-static position. The higher jump height observed in CMJ can therefore be interpreted as an
-<strong>indirect functional indicator</strong> of the performance benefit associated with the stretch-shortening
-cycle.
+However, these findings should be interpreted cautiously. A greater CMJ height does not necessarily indicate normal tendon function or normal biomechanical behavior. Athletes with patellar tendinopathy may still develop compensatory strategies involving altered joint kinematics, landing mechanics, or force distribution.
 </p>
 
 <p>
-However, this interpretation must remain cautious. The present analysis is based only on jump height
-derived from flight time. It does not directly measure tendon mechanical properties, muscle activation,
-joint kinetics, or movement strategy. Therefore, the results suggest that the SSC-related performance
-advantage was preserved at the group level, but they do not directly prove the underlying neuromechanical
-mechanisms.
+Therefore, the SJ-CMJ comparison should be considered an indirect functional indicator of SSC contribution rather than a direct measurement of tendon or neuromuscular function.
 </p>
-</section>
 
+<h3>8.4 Limitations</h3>
 
-<section id="graphs">
-<h2>9. Graphical analysis</h2>
-<h3>9.1 Boxplot interpretation</h3>
-<div class="figure">
-  <img src="./Plot/SJ_Height_vs_CMJ_Height.png" alt="SJ Height vs CMJ Height">
-  <p class="caption">Figure 1. Distribution of jump height values in SJ and CMJ conditions.</p>
+<p>
+Several limitations should be acknowledged in this project.
+</p>
+
+<ul>
+  <li>The sample size was relatively small (n = 12).</li>
+  <li>Only one performance variable was analyzed.</li>
+  <li>The SSC was assessed indirectly through jump height difference.</li>
+  <li>No healthy control group was included for comparison.</li>
+  <li>Jump height alone does not fully describe the biomechanics of jumping and landing tasks.</li>
+</ul>
+
+<p>
+Future analyses could include additional biomechanical variables such as force production, joint kinematics, landing strategy, stiffness, or electromyographic activity in order to better characterize movement adaptations associated with patellar tendinopathy.
+</p>
 </div>
-<p>The boxplot shows a clear upward shift of the distribution in the CMJ condition compared with the SJ condition. The median jump height is higher in CMJ, and the interquartile range is positioned at higher values. This indicates that the improvement from SJ to CMJ was visible at the group level.</p>
-<p>Although some overlap exists between the two distributions, the overall pattern indicates greater jump performance during the countermovement condition. The variability appears relatively comparable between conditions, suggesting that the difference was not driven by one isolated extreme value.</p>
-<h3>9.2 Paired plot interpretation</h3>
-<div class="figure">
-  <img src="./Plot/Individual_Changes_from_SJ_to_CMJ.png" alt="Individual changes from SJ to CMJ">
-  <p class="caption">Figure 2. Individual changes in jump height from SJ to CMJ.</p>
+
+<div class="section-box">
+<h2 id="conclusion">9. Conclusion</h2>
+
+<p>
+This project showed that jump height was significantly greater during the Countermovement Jump (CMJ) than during the Squat Jump (SJ) in athletes with patellar tendinopathy.
+</p>
+
+<p>
+The mean difference between conditions was 3.57 cm, with a statistically significant paired t-test and a large effect size. These results suggest that the performance advantage associated with the countermovement phase remained present at the group level.
+</p>
+
+<p>
+Therefore, the difference between CMJ and SJ can be interpreted as an indirect functional indicator of stretch-shortening cycle contribution. However, this does not exclude the presence of altered movement strategies or compensations related to patellar tendinopathy.
+</p>
 </div>
-<p>The paired plot provides a more precise representation of within-subject changes. Each line connects the SJ value to the CMJ value of the same participant. Most participants showed an upward trajectory, meaning that jump height increased when a countermovement was performed.</p>
-<p>This graphical pattern is important because it shows that the difference observed at the group level was also generally present at the individual level. The consistency of the upward lines supports the use of a paired statistical test and visually confirms the positive mean difference identified in R.</p>
-<p>Physiologically, this result is consistent with the expected contribution of the SSC. However, the graphical analysis remains performance-based and indirect. These figures do not directly measure tendon mechanics, muscle activation, or joint-specific strategies.</p>
-</section>
 
-<section id="discussion">
-<h2>10. Discussion</h2>
-<p>The main finding of this project is that athletes with patellar tendinopathy demonstrated significantly greater jump height in CMJ than in SJ. This result is consistent with the expected functional advantage provided by the stretch-shortening cycle during explosive movements.</p>
-<p>Because the CMJ includes a preparatory eccentric phase whereas the SJ starts from a static position, the difference between the two conditions can be interpreted as an indirect functional indicator of SSC contribution. In this sample, the CMJ advantage remained clearly visible despite the presence of patellar tendinopathy.</p>
-<p>The large effect size and the consistency of the individual responses strengthen this interpretation. At the level of jump height performance, the expected SSC-related benefit appears to be preserved in this pathological athletic population.</p>
-<p>However, this interpretation must remain cautious. The present project only examined jump height derived from flight time. It did not directly assess tendon mechanical behavior, muscle activation, joint kinetics, or detailed movement strategies. Therefore, the observed difference should not be interpreted as a direct measurement of SSC efficiency, but rather as a simple and reproducible performance-based marker.</p>
-</section>
+<div class="section-box">
+<h2 id="references">10. References</h2>
 
-<section id="conclusion">
-<h2>11. Conclusion</h2>
-<p>In this sample of athletes with patellar tendinopathy, jump height was significantly greater in the Countermovement Jump than in the Squat Jump. The mean gain of <strong>3.57 cm</strong>, the highly significant paired t-test, and the large effect size support a robust difference between conditions.</p>
-<p>These findings are consistent with the expected contribution of the stretch-shortening cycle and suggest that its functional benefit on jump height remained present at the group level. This project supports the use of SJ-CMJ comparison as a simple and meaningful indirect marker of SSC-related performance.</p>
-<p>The workflow also demonstrates a coherent use of digital tools: Python was used for data extraction and visualization, while R was used for statistical testing and interpretation.</p>
-</section>
-
-<section id="references" class="references">
-<h2>12. References</h2>
-<p>Ben Zaki, B., Julia, M., Desmyttere, G., Perrey, S., &amp; Dusfour, G. (2025). <em>Altered landing strategy during vertical jump tasks in elite volleyball players with patellar tendinopathy</em>.</p>
-<p>Bisseling, R. W., Hof, A. L., Bredeweg, S. W., Zwerver, J., &amp; Mulder, T. (2007). Relationship between landing strategy and patellar tendinopathy in volleyball. <em>British Journal of Sports Medicine, 41</em>(7), e8.</p>
-<p>Butler, R. J., Crowell, H. P., &amp; Davis, I. M. (2003). Lower extremity stiffness: Implications for performance and injury. <em>Clinical Biomechanics, 18</em>(6), 511–517.</p>
-<p>DeVita, P., &amp; Skelly, W. A. (1992). Effect of landing stiffness on joint kinetics and energetics in the lower extremity. <em>Medicine &amp; Science in Sports &amp; Exercise, 24</em>(1), 108–115.</p>
-<p>Linthorne, N. P. (2001). Analysis of standing vertical jumps using a force platform. <em>American Journal of Physics, 69</em>(11), 1198–1204.</p>
-</section>
-</main>
+<ul class="reference-list">
+  <li>Ben Zaki, B., Julia, M., Desmyttere, G., Perrey, S., & Dusfour, G. (2025). <i>Altered landing strategy during vertical jump tasks in elite volleyball players with patellar tendinopathy</i>.</li>
+  <li>Bisseling, R. W., Hof, A. L., Bredeweg, S. W., Zwerver, J., & Mulder, T. (2007). Relationship between landing strategy and patellar tendinopathy in volleyball. <i>British Journal of Sports Medicine, 41</i>(7), e8.</li>
+  <li>Butler, R. J., Crowell, H. P., & Davis, I. M. (2003). Lower extremity stiffness: Implications for performance and injury. <i>Clinical Biomechanics, 18</i>(6), 511–517.</li>
+  <li>DeVita, P., & Skelly, W. A. (1992). Effect of landing stiffness on joint kinetics and energetics in the lower extremity. <i>Medicine & Science in Sports & Exercise, 24</i>(1), 108–115.</li>
+  <li>Linthorne, N. P. (2001). Analysis of standing vertical jumps using a force platform. <i>American Journal of Physics, 69</i>(11), 1198–1204.</li>
+</ul>
 </div>
+
+<div class="footer">
+Movement Analysis Project — Master 2 REHAB
+</div>
+
+</div>
+
 </body>
 </html>
